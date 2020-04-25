@@ -36,6 +36,7 @@ function Interface_ (name='', params={}) {
 }
 
 
+// create interfaces that allows us to enforce type checks
 const MoveI = Interface_('move', {sourcePath: 'string', destPath: 'string', obj: 'object'});
 const CopyI = Interface_('copy', {sourceObject: 'object', sourcePath: 'string', destObject: 'object', destPath: 'string'});
 const TransferI = Interface_('transfer', {sourcePath: 'string', destPath: 'string', source: 'object', target: 'object'});
@@ -47,6 +48,7 @@ const RemoveI = Interface_('remove', {path: 'string', obj: 'object'});
 const TransformI = Interface_('transform', {recipe: 'object', source: 'object'});
 const DotI = Interface_('dot', {obj: 'object'});
 const JsonsI = Interface_('jsons', {jsons: 'array'});
+const RowsI = Interface_('rows', {rows: 'array'});
 
 
 class Dotmitizer {
@@ -78,7 +80,9 @@ class Dotmitizer {
   static get ({path=GetI.req, obj=GetI.req, ...kwargs}={}) {
     GetI.extra(kwargs);
     GetI.typecheck(arguments);
-    return DotObject.pick(path, obj);
+    const result = DotObject.pick(path, obj);
+    if (result === undefined) return null;
+    return result;
   }
   
   static set ({path=SetI.req, value=SetI.req, obj=SetI.req, ...kwargs}={}) {
@@ -111,20 +115,54 @@ class Dotmitizer {
     return DotObject.dot(obj);
   }
   
-  static jsonsTo2dArray ({jsons=JsonsI.req, ...kwargs}={}) {
+  static jsonsToRows ({jsons=JsonsI.req, ...kwargs}={}) {
     JsonsI.extra(kwargs);
     JsonsI.typecheck(arguments);
     const headers = [];
     const values = [];
+    
+    // save values as dotted objects and store headers
     for (const json of jsons) {
       const value = DotObject.dot(json);
       headers.push(Object.keys(value));
       values.push(value);
     }
+    
+    // row1 will consist of unique header columns, sorted alphabetically
+    // use array generics for most efficient manner of doing this
     const row1 = [...new Set([].concat(...headers))];
     row1.sort();
+    
+    // the rest of the rows consits of the values in each column, or null if not present
     const rows = values.map(value => row1.map(column => value[column] || null));
+
+    // concat the arrays efficiently for return
     return [row1, ...rows];
+  }
+  
+  static rowsToJsons ({rows=RowsI.req, ...kwargs}={}) {
+    RowsI.extra(kwargs);
+    RowsI.typecheck(arguments);
+    const headers = rows[0];
+    const objects = [];
+    
+    // go through row 1 to end
+    for (const row of rows.slice(1)) {
+      const dotted = row.reduce(
+        function (acc, value, idx) {
+          // safeguard if for some reason empty string for column or null
+          const column = headers[idx] || null;          
+          if (!column) return acc;
+          
+          // set and return
+          acc[column] = value;
+          return acc;
+        }, {}
+      );
+      const obj = DotObject.object(dotted);
+      objects.push(obj);
+    }
+    return objects;
   }
 
 }
