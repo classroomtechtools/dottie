@@ -29,20 +29,34 @@ If you use `.augment` this enables the "advanced" API where you have methods on 
 Writing a Google Chat Bot using the card service using long-form jsons was a bit difficult. This is much more readable (and easier to edit) than writing out the object in long form:
 
 ```js
-  dottie.augment(Object, Array);   // lets me use {}.dottie
-  
-  const cards = {};
-  cards.dottie.set({path: 'cards[0].sections[0].widgets[0].keyValue.topLabel', value: 'Ticket no.'});
-  cards.dottie.set({path: 'cards[0].sections[0].widgets[0].keyValue.content', value: ticketId.toString()});
-  cards.dottie.set({path: 'cards[0].sections[0].widgets[0].keyValue.contentMultiline', value: false});
-  cards.dottie.set({path: 'cards[0].sections[0].widgets[0].keyValue.bottomLabel', value: item.priority.toUpperCase()});
-  cards.dottie.set({path: 'cards[0].sections[0].widgets[0].keyValue.icon', value: 'TICKET'});
-  
-  cards.dottie.set({path: 'cards[0].sections[1].header', value: 'ICT Support Staff Only'});
-  cards.dottie.set({path: 'cards[0].sections[1].widgets[0].buttons[0].imageButton.iconUrl', value: '<url>.png'});
-  cards.dottie.set({path: 'cards[0].sections[1].widgets[0].buttons[0].imageButton.onClick.action.actionMethodName', value: 'accept'});
-  cards.dottie.set({path: 'cards[0].sections[1].widgets[0].buttons[0].imageButton.onClick.action.parameters.key', value: 'ticketId'});
-  cards.dottie.set({path: 'cards[0].sections[1].widgets[0].buttons[0].imageButton.onClick.action.parameters.value', value: ticketId.toString()});
+const cards = {};
+const path = 'cards[0].sections[0].widgets[0].keyValue';
+dottie.set(cards, `${path}.topLabel`, 'Ticket no.');
+dottie.set(card,s `${path}.content`, ticketId.toString());
+dottie.set(cards, `${path}.contentMultiline`, false);
+dottie.set(cards, `${path}.bottomLabel`, item.priority.toUpperCase());
+dottie.set(cards, `${path}.icon`, 'TICKET'); 
+Logger.log(cards);
+/*
+{
+  cards: [
+    {
+      sections: [
+        {
+          widgets: [
+            {
+              keyValue: {
+                topLabel: 'Ticket no.',
+                content: '<id>',
+                contentMultiline: false,
+                bottomLabel: 'HIGH'
+              }
+          ]
+        }
+      ]
+    }
+  ]
+*/
 ```
 
 ## Howto as imported library
