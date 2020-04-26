@@ -29,6 +29,8 @@ If you use `.augment` this enables the "advanced" API where you have methods on 
 Writing a Google Chat Bot using the card service using long-form jsons was a bit difficult. This is much more readable (and easier to edit) than writing out the object in long form:
 
 ```js
+  dottie.augment(Object, Array);   // lets me use {}.dottie
+  
   const cards = {};
   cards.dottie.set({path: 'cards[0].sections[0].widgets[0].keyValue.topLabel', value: 'Ticket no.'});
   cards.dottie.set({path: 'cards[0].sections[0].widgets[0].keyValue.content', value: ticketId.toString()});
