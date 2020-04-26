@@ -1,9 +1,9 @@
 /**
  * lib
- * @returns {DotmitizerLib}
+ * @returns {DottieLib}
  */
 function lib() {
-  return Dotmitizer;
+  return Dottie;
 }
 
 
@@ -15,7 +15,7 @@ function lib() {
  * @returns {Object}
  */
 function set(obj, path, value) {
-  return Dotmitizer.set({path, value, obj});
+  return Dottie.set({path, value, obj});
 }
 
 
@@ -26,7 +26,7 @@ function set(obj, path, value) {
  * @return {Any}
  */
 function get(obj, path) {
-  return Dotmitizer.get({path, obj});
+  return Dottie.get({path, obj});
 }
 
 
@@ -38,7 +38,7 @@ function get(obj, path) {
  * @return {Object}
  */
 function move(obj, sourcePath, destPath) {
-  return Dotmitizer.move({sourcePath, destPath, obj})
+  return Dottie.move({sourcePath, destPath, obj})
 }
 
 
@@ -51,7 +51,7 @@ function move(obj, sourcePath, destPath) {
  * @returns {Object}
  */
 function copy (sourceObject, sourcePath, destObject, destPath) {
-  return Dotmitizer.copy({sourcePath, destPath, sourceObject, destObject});
+  return Dottie.copy({sourcePath, destPath, sourceObject, destObject});
 }
 
 
@@ -64,7 +64,7 @@ function copy (sourceObject, sourcePath, destObject, destPath) {
  * @return {Object}
  */
 function transfer (source, sourcePath, target, destPath) {
-  return Dotmitizer.transfer({sourcePath, destPath, source, target});
+  return Dottie.transfer({sourcePath, destPath, source, target});
 }
 
 
@@ -74,7 +74,7 @@ function transfer (source, sourcePath, target, destPath) {
  * @return {Object}
  */
 function expand (obj) {
-  return Dotmitizer.expand({obj});
+  return Dottie.expand({obj});
 }
 
 
@@ -84,7 +84,7 @@ function expand (obj) {
  * @param {String} path
  */
 function delete_(obj, path) {
-  return Dotmitizer.delete_({obj, path});
+  return Dottie.delete_({obj, path});
 }
 
 
@@ -95,7 +95,7 @@ function delete_(obj, path) {
  * @return {Any}
  */
 function remove(obj, path) {
-  return Dotmitizer.remove({obj, path});
+  return Dottie.remove({obj, path});
 }
 
 
@@ -106,7 +106,7 @@ function remove(obj, path) {
  * @return {Object}
  */
 function delete_(obj, path) {
-  return Dotmitizer.delete_({obj, path});
+  return Dottie.delete_({obj, path});
 }
 
 
@@ -117,7 +117,7 @@ function delete_(obj, path) {
  * return {Object}
  */
 function transform(source, recipe) {
-  return Dotmitizer.transform({recipe, source});
+  return Dottie.transform({recipe, source});
 }
 
 
@@ -127,7 +127,7 @@ function transform(source, recipe) {
  * @return {Object}
  */ 
 function dot(obj) {
-  return Dotmitizer.dot({obj});
+  return Dottie.dot({obj});
 }
 
 
@@ -137,7 +137,7 @@ function dot(obj) {
  * @return {Array[]}
  */
 function jsonsToRows (jsons) {
-  return Dotmitizer.jsonsToRows({jsons});
+  return Dottie.jsonsToRows({jsons});
 }
 var jsonsTo2dArray = jsonsToRows;
 
@@ -148,5 +148,5 @@ var jsonsTo2dArray = jsonsToRows;
  * @return {Object[]}
  */
 function rowsToJsons(rows) {
-  return Dotmitizer.rowsToJsons({rows});
+  return Dottie.rowsToJsons({rows});
 }
