@@ -12,6 +12,10 @@ I wrote this when working with the Google Chat Bot [cards service](https://devel
 
 I also use an array of jsons grabbed from external APIs, and write them to spreadsheets. So I added the two methods `jsonsToRows` and the reverse `rowsToJsons`, whose functionality depends upon the underyling methods.
 
+## Quickstart
+
+Library project id: `MFuaGnV66TzMY39sIo0MYtIziaeauqu6_`. Using identifier `dottie` use autocomplete to see which methods are available for object minipulation. Any parameter `obj` is the object which is the source.
+
 ## API
 
 The file `export.gs` illustrates all of the methods that are available when used as an imported library. Autocomplete assists with this, too.
@@ -19,6 +23,25 @@ The file `export.gs` illustrates all of the methods that are available when used
 Alternatively, use it as an inline library (copied and pasted into your project), and see the Dottie class in `interface.gs` for the API.
 
 If you use `.augment` this enables the "advanced" API where you have methods on `Object.prototype` and `Array.prototype`. 
+
+## Example
+
+Writing a Google Chat Bot using the card service using long-form jsons was a bit difficult. This is much more readable (and easier to edit) than writing out the object in long form:
+
+```js
+  const cards = {};
+  cards.dottie.set({path: 'cards[0].sections[0].widgets[0].keyValue.topLabel', value: 'Ticket no.'});
+  cards.dottie.set({path: 'cards[0].sections[0].widgets[0].keyValue.content', value: ticketId.toString()});
+  cards.dottie.set({path: 'cards[0].sections[0].widgets[0].keyValue.contentMultiline', value: false});
+  cards.dottie.set({path: 'cards[0].sections[0].widgets[0].keyValue.bottomLabel', value: item.priority.toUpperCase()});
+  cards.dottie.set({path: 'cards[0].sections[0].widgets[0].keyValue.icon', value: 'TICKET'});
+  
+  cards.dottie.set({path: 'cards[0].sections[1].header', value: 'ICT Support Staff Only'});
+  cards.dottie.set({path: 'cards[0].sections[1].widgets[0].buttons[0].imageButton.iconUrl', value: '<url>.png'});
+  cards.dottie.set({path: 'cards[0].sections[1].widgets[0].buttons[0].imageButton.onClick.action.actionMethodName', value: 'accept'});
+  cards.dottie.set({path: 'cards[0].sections[1].widgets[0].buttons[0].imageButton.onClick.action.parameters.key', value: 'ticketId'});
+  cards.dottie.set({path: 'cards[0].sections[1].widgets[0].buttons[0].imageButton.onClick.action.parameters.value', value: ticketId.toString()});
+```
 
 ## Howto as imported library
 
