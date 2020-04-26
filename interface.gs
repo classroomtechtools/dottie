@@ -1,7 +1,7 @@
 function Interface_ (name='', params={}) {
   class I_ {
     constructor (n, p) {
-      this.name = `Dotmitizer.${n}`;
+      this.name = `dottie.${n}`;
       this.params = p;
     }
     
@@ -51,7 +51,7 @@ const JsonsI = Interface_('jsons', {jsons: 'array'});
 const RowsI = Interface_('rows', {rows: 'array'});
 
 
-class Dotmitizer {
+class Dottie {
     
   static move ({sourcePath=MoveI.req, destPath=MoveI.req, obj=MoveI.req, ...kwargs}={}) {
     MoveI.extra(kwargs);
@@ -91,7 +91,7 @@ class Dotmitizer {
     return DotObject.str(path, value, obj);
   }
   
-  static delete_ ({path, obj, ...kwargs}={}) {
+  static delete_ ({path=DeleteI.req, obj=DeleteI.req, ...kwargs}={}) {
     DeleteI.extra(kwargs);
     DeleteI.typecheck(arguments);
     return DotObject.delete(path, obj);
@@ -163,6 +163,62 @@ class Dotmitizer {
       objects.push(obj);
     }
     return objects;
+  }
+
+  /*
+    Use this to use {}.dottie and [].dottie methods
+   */
+  static augment () {
+    Object.defineProperty(Array.prototype, 'dottie', {
+      get: function () {
+        return {
+          jsonsToRows: ({...kwargs}={}) => {
+            Logger.log(Object.keys(this));
+            return Dottie.jsonsToRows({jsons:this});
+          },
+          rowsToJsons: ({...kwargs}={}) => {
+            return Dottie.rowsToJsons({rows: this});
+          }
+        };
+      }
+    });
+  
+    Object.defineProperty(Object.prototype, 'dottie', {
+      get: function () {
+        return {
+          set: ({...kwargs}={}) => {
+            return Dottie.set({obj:this, ...kwargs});
+          },
+          get: ({...kwargs}={}) => {
+            return Dottie.get({obj:this, ...kwargs});
+          },
+          move: ({...kwargs}={}) => {
+            return Dottie.move({obj: this, ...kwargs});
+          },
+          copy: ({...kwargs}={}) => {
+            return Dottie.copy({sourceObject:this, ...kwargs});
+          },
+          transfer: ({...kwargs}={}) => {
+            return Dottie.transfer({source: this, ...kwargs});
+          },
+          expand: ({...kwargs}={}) => {
+            return Dotimitizer.expand({obj: this, ...kwargs});
+          },
+          delete_: ({...kwargs}={}) => {
+            return Dottie.delete_({obj:this, ...kwargs});
+          },
+          remove: ({...kwargs}={}) => {
+            return Dottie.remove({obj: this, ...kwargs});
+          },
+          transform: ({...kwargs}={}) => {
+            return Dottie.transform({source: this, ...kwargs});
+          },
+          dot: ({...kwargs}={}) => {
+            return Dottie.dot({obj: this, ...kwargs});
+          }
+        };
+      }
+    });
   }
 
 }
