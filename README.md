@@ -1,38 +1,116 @@
-# Dotmitizer
+# dottie.gs
 
-Manipulate object properties, made a cinch. 
+Manipulate objects and their properties. Build jsons with sanity. Convert jsons to spreadsheet-friendly 2d arrays, and back again. Made a cinch.
 
-A gas library wrapping [dot-object](https://github.com/rhalff/dot-object) for convenience, and adding a very useful `jsonsTo2dArray` method which utilizes the underlying property manipulation methods.
+With thanks to [dot-object](https://github.com/rhalff/dot-object).
 
-The property manipulation methods would be useful in a variety of applications that make heavy use of objects.
+## Motivation
 
-In particular, `jsonsTo2dArray` is useful when trying to get data returned from APIs reflected onto a Google Sheet. You should be able to call `.setValues()` with the returned data.
+Working with jsons and objects can be tiresome to write out by hand, and there are easier ways to manipulate objects which other javascript frameworks can use. Why not bring that to gas?
 
-## Quickstart
+I wrote this when working with the Google Chat Bot [cards service](https://developers.google.com/hangouts/chat/how-tos/cards-onclick), which requires writing jsons by hand. It was way easier for me to use dot notation.
+
+I also use an array of jsons grabbed from external APIs, and write them to spreadsheets. So I added the two methods `jsonsToRows` and the reverse `rowsToJsons`, whose functionality depends upon the underyling methods.
+
+## Quickstart as imported library
 
 Library project id: `MFuaGnV66TzMY39sIo0MYtIziaeauqu6_`
 
-Methods in `Dotmitizer.*` have autocomplete enabled. Type-checking is enabled and will throw an error if developer uses wrong types.
+Methods have autocomplete enabled. Type-checking is enabled and will throw an error if developer uses wrong types.
 
-Alternatively, copy and paste the `interface.gs`, `dot-object.gs` (and `license.gs`) files into your project.
+## Quickstart as inline library
 
-### Methods
+Alternatively, copy and paste the `interface.gs`, `dot-object.gs` files into your project. You then have the `Dottie` namespace with same methods as the main library. Copying and pasting `export.gs` into your project will get you `set`, `get`, `move`, methods, etc.
 
-#### jsonsTo2dArray
+More "advanced" usage would be to call `Dottie.augment()` and you get `{}.dottie` and `[].dottie` namespaces. The reason this way of working is tagged as "advanced" is that you have to interact with the methods with named parameters, and you'll have to look up in `Dottie` class static methods as needed. 
+
+## Usage as imported library
+
+```js
+const obj = dottie.set({}, 'path.to.value', 100);
+Logger.log(obj);
+/* 
+{
+  path: {
+    to: {
+      value: 100
+    }
+  }
+}
+*/
+const value = dottie.get(obj, 'path.to.value');
+Logger.log(value);
+/*
+100
+*/
+
+const obj = dottie.set({}, 'path.to.array[0].name', 'Bob');
+Logger.log(obj);
+/*
+{
+  path: {
+    to: {
+      array: [
+        {name: "Bob"}
+      ]
+    }
+  }
+}
+*/
+```
+
+## Usage as inline library
+
+Same as above, except no need for the `dottie` namespace … or … if you call `Dottie.augment()` you will then be able to do this:
+
+```js
+const obj = {}.dottie.set({path: 'path.to.value', value: 100});
+Logger.log(obj);
+/* 
+{
+  path: {
+    to: {
+      value: 100
+    }
+  }
+}
+*/
+const value = obj.dottie.get({path: 'path.to.value'});
+Logger.log(value);
+/*
+100
+*/
+
+const obj = {}.dottie.set({path: 'path.to.array[0].name', value: 'Bob'});
+Logger.log(obj);
+/*
+{
+  path: {
+    to: {
+      array: [
+        {name: "Bob"}
+      ]
+    }
+  }
+}
+*/
+```
+
+## Methods
+
+### jsonsTo2dArray
 
 Takes an array of json objects and converts into a spreadsheet-friendly 2d array. The columns are named with dot notation according to the path of the properties. The first row contains the headers/columns (in alphabetical order) and the remaining rows are the values. 
 
 Exmaple: 
 
 ```js
-
-
 const jsons = [
   {one: {two: 2}},
   {one: {two: 2, three: 3}},
   {another: 'one'}
 ];
-const result = jsonsTo2dArray(jsons);
+const result = dottie.jsonsTo2dArray(jsons);
 Logger.log(result);
 ```
 
@@ -47,9 +125,9 @@ Result is (formatted for readability):
 ]
 ```
 
-#### Property Manipulations
+### Property Manipulations
 
-The following methods are exposed as `Dotmitizer.*`; please see [dot-object readme](https://github.com/rhalff/dot-object/blob/master/src/dot-object.js) for more info.
+The following methods are exposed as `Dottie.*`; please see [dot-object readme](https://github.com/rhalff/dot-object/blob/master/src/dot-object.js) for more info.
 
 ```
 /**
