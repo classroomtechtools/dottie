@@ -1,6 +1,6 @@
 # dottie.gs
 
-Manipulate objects and their properties. Build jsons with sanity. Convert jsons to spreadsheet-friendly 2d arrays, and back again. Made a cinch.
+Manipulate objects and their properties. Build jsons with sanity. Convert an array of jsons to spreadsheet-friendly 2d arrays, and back again. Made a cinch.
 
 With thanks to [dot-object](https://github.com/rhalff/dot-object).
 
@@ -12,19 +12,21 @@ I wrote this when working with the Google Chat Bot [cards service](https://devel
 
 I also use an array of jsons grabbed from external APIs, and write them to spreadsheets. So I added the two methods `jsonsToRows` and the reverse `rowsToJsons`, whose functionality depends upon the underyling methods.
 
-## Quickstart as imported library
+## API
+
+The file `export.gs` illustrates all of the methods that are available when used as an imported library. Autocomplete assists with this, too.
+
+Alternatively, use it as an inline library (copied and pasted into your project), and see the Dottie class in `interface.gs` for the API.
+
+If you use `.augment` this enables the "advanced" API where you have methods on `Object.prototype` and `Array.prototype`. 
+
+## Howto as imported library
 
 Library project id: `MFuaGnV66TzMY39sIo0MYtIziaeauqu6_`
 
-Methods have autocomplete enabled. Type-checking is enabled and will throw an error if developer uses wrong types.
+Methods on namespace `dottie` (or whatever identifier you choose) have autocomplete enabled. See `export.gs` for complete information, or just use autocomplete.
 
-## Quickstart as inline library
-
-Alternatively, copy and paste the `interface.gs`, `dot-object.gs` files into your project. You then have the `Dottie` namespace with same methods as the main library. Copying and pasting `export.gs` into your project will get you `set`, `get`, `move`, methods, etc.
-
-More "advanced" usage would be to call `Dottie.augment()` and you get `{}.dottie` and `[].dottie` namespaces. The reason this way of working is tagged as "advanced" is that you have to interact with the methods with named parameters, and you'll have to look up in `Dottie` class static methods as needed. 
-
-## Usage as imported library
+### Example usage
 
 ```js
 const obj = dottie.set({}, 'path.to.value', 100);
@@ -59,7 +61,17 @@ Logger.log(obj);
 */
 ```
 
-## Usage as inline library
+
+## Howto as inline library
+
+Alternatively, copy and paste the `interface.gs`, `dot-object.gs` files into your project. Copying and pasting `export.gs` into your project will get you `set`, `get`, `move`, etc methods in the global space.
+
+More "advanced" usage would be to call `Dottie.augment()` when used as an inline library, which provides you `{}.dottie` and `[].dottie` namespaces. The reason this way of working is tagged as "advanced" is that you have to interact with the methods with object parameters, and you'll have to look up in `Dottie` class static methods as needed.
+
+Furthermore, any parameters named `obj` in the published API is not needed to be passed when used in this manner.
+
+
+### Usage as inline library
 
 Same as above, except no need for the `dottie` namespace … or … if you call `Dottie.augment()` you will then be able to do this:
 
@@ -96,9 +108,26 @@ Logger.log(obj);
 */
 ```
 
-## Methods
+## Notes
 
-### jsonsTo2dArray
+### Usage of `dottie.augment()`
+
+You can get `{}.dottie` and `[].dottie` mode while using dottie as an imported library if you so which, by calling `dottie.augment(Object, Array)`. This is not highly advertised as it sounds like a bit of pain; you'll have to look up the methods and usage on this github (since it won't be in your project).  Or maybe the conventions used here are so obvious you won't have to look them up?
+
+### Errors thrown
+
+It is the author's opinion that a library should throw errors if its API is used wrongly, instead of failing at some obscure code path. This ensures that the developer understands how to use the library correctly.
+
+For that reason, type-checking is enabled. Dottie throws an error with explanation if:
+
+* its methods are passed with incompatible or unexpected types
+* if required parameters are not passed
+* more than the necessary parameters are passed
+
+
+## Special Methods
+
+### dottie.jsonsToRows
 
 Takes an array of json objects and converts into a spreadsheet-friendly 2d array. The columns are named with dot notation according to the path of the properties. The first row contains the headers/columns (in alphabetical order) and the remaining rows are the values. 
 
@@ -110,7 +139,7 @@ const jsons = [
   {one: {two: 2, three: 3}},
   {another: 'one'}
 ];
-const result = dottie.jsonsTo2dArray(jsons);
+const result = dottie.jsonsToRows(jsons);
 Logger.log(result);
 ```
 
@@ -125,116 +154,7 @@ Result is (formatted for readability):
 ]
 ```
 
-### Property Manipulations
+### dottie.rowsToJsons
 
-The following methods are exposed as `Dottie.*`; please see [dot-object readme](https://github.com/rhalff/dot-object/blob/master/src/dot-object.js) for more info.
+This is the reverse of `dottie.jsonsToRows`.
 
-```
-/**
- * To set values by path string
- * @param {Object} obj
- * @param {String} path
- * @param {Any} value
- * @returns {Object}
- */
-function set(obj, path, value) {}
-
-
-/**
- * Retrieves a value from the object without removing it.
- * @param {Object} obj
- * @param {String} path
- * @return {Any}
- */
-function get(obj, path) {}
-
-
-/**
- * Move a property within one object to another location
- * @param {Object} obj
- * @param {String} sourcePath
- * @param {String} destPath
- * @return {Object}
- */
-function move(obj, sourcePath, destPath) {}
-
-
-/**
- * Copy property from one object to another
- * @param {Object} sourceObject
- * @param {String} sourcePath
- * @param {Object} destObject 
- * @param {String} destPath
- * @returns {Object}
- */
-function copy (sourceObject, sourcePath, destObject, destPath) {}
-
-
-/**
- * Transfer property from one object to another
- * @param {Object} sourceObject
- * @param {String} sourcePath
- * @param {Object} destObject
- * @param {String} destPath
- * @return {Object}
- */
-function transfer (source, sourcePath, target, destPath) {}
-
-/**
- * Transform properties
- * @param {Object} recipe
- * @param {Object} source
- * return {Object}
- */
-function transform(recipe, source) {}
-
-
-/**
- * Expand to an object (convert dot notations to full object)
- * @param {Object} obj
- * @return {Object}
- */
-function expand (obj) {}
-
-
-/** 
- * Delete a value using dot notation
- * @param {Object} obj
- * @param {String} path
- */
-function delete_(obj, path) {}
-
-
-/** 
- * Remove a value using dot notation (and keep array indexes)
- * @param {Object} obj
- * @param {String} path
- * @return {Any}
- */
-function remove(obj, path) {}
-
-
-/** 
- * Delete a value using dot notation (and adjust array indexes)
- * @param {Object} obj 
- * @param {Object} path
- * @return {Object}
- */
-function delete_(obj, path) {}
-
-
-/** 
- * Convert object to dotted-key/value pair
- * @param {Object} obj
- * @return {Object}
- */ 
-function dot(obj) {}
-
-
-/**
- * Convert an array of jsons to 2d array
- * @param {Object[]} jsons
- * @return {Array[]}
- */
-function jsonsTo2dArray (jsons) {}
-```
