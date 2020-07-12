@@ -1,0 +1,47 @@
+{
+  "name": "dottie",
+  "version": "1.0.0",
+  "description": "Build jsons with sanity.",
+  "main": "src/modules/index.js",
+  "type": "module",
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "start": "sirv build/svelte",
+    "test": "ava",
+    "deploy": "run-s bundle clasp:push",
+    "bundle": "run-s rm-artifacts build generate",
+    "rm-artifacts": "rm -fr ./project/*",
+    "generate": "run-p generate:*",
+    "generate:remote": "cp -r ./src/scripts/* ./project/",
+    "clasp:create": "clasp create --rootDir ./project",
+    "clasp:login": "clasp login",
+    "clasp:logout": "clasp logout",
+    "clasp:logs": "clasp logs",
+    "clasp:push": "npm run bundle && clasp push",
+    "clasp:tests": "clasp run tests"
+  },
+  "ava": {
+    "verbose": true
+  },
+  "keywords": [
+    "appscripts"
+  ],
+  "author": "Adam Morris <classroomtechtools.com@gmail.com> (https://classroomtechtools.com)",
+  "license": "MIT",
+  "devDependencies": {
+    "@classroomtechtools/unittesting": "^1.5.1",
+    "@google/clasp": "^2.3.0",
+    "@rollup/plugin-commonjs": "^12.0.0",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-multi-entry": "^3.0.1",
+    "@rollup/plugin-node-resolve": "^8.1.0",
+    "npm-run-all": "^4.1.5",
+    "rollup": "^2.19.0",
+    "rollup-plugin-hypothetical": "^2.1.0",
+    "ava": "^3.10.1"
+  },
+  "dependencies": {
+    "dot-object": "^2.1.3"
+  }
+}

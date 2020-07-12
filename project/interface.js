@@ -54,24 +54,28 @@ const RowsI = Interface_('rows', {rows: 'array'});
 class Dottie {
 
   static move ({sourcePath=MoveI.req, destPath=MoveI.req, obj=MoveI.req, ...kwargs}={}) {
+    const {DotObject} = Import;
     MoveI.extra(kwargs);
     MoveI.typecheck(arguments);
     return DotObject.move(sourcePath, destPath, obj);
   }
 
   static copy ({obj=CopyI.req, sourcePath=CopyI.req, destObject=CopyI.req, destPath=CopyI.req, ...kwargs}={}) {
+    const {DotObject} = Import;
     CopyI.extra(kwargs);
     CopyI.typecheck(arguments);
     return DotObject.copy(sourcePath, destPath, obj, destObject);
   }
 
   static transfer ({sourcePath=TransferI.req, destPath=TransferI.req, obj=TransferI.req, target=TransferI.req, ...kwargs}={}) {
+    const {DotObject} = Import;
     TransferI.extra(kwargs);
     TransferI.typecheck(arguments);
     return DotObject.transfer(sourcePath, destPath, obj, target);
   }
 
   static expand ({obj=ExpandI.req, ...kwargs}={}) {
+    const {DotObject} = Import;
     ExpandI.extra(kwargs);
     ExpandI.typecheck(arguments);
     return DotObject.object(obj);
@@ -80,42 +84,49 @@ class Dottie {
   static get ({path=GetI.req, obj=GetI.req, ...kwargs}={}) {
     GetI.extra(kwargs);
     GetI.typecheck(arguments);
+    const {DotObject} = Import;
     const result = DotObject.pick(path, obj);
     if (result === undefined) return null;
     return result;
   }
 
   static set ({path=SetI.req, value=SetI.req, obj=SetI.req, ...kwargs}={}) {
+    const {DotObject} = Import;
     SetI.extra(kwargs);
     SetI.typecheck(arguments);
     return DotObject.str(path, value, obj);
   }
 
   static delete_ ({path=DeleteI.req, obj=DeleteI.req, ...kwargs}={}) {
+    const {DotObject} = Import;
     DeleteI.extra(kwargs);
     DeleteI.typecheck(arguments);
     return DotObject.delete(path, obj);
   }
 
   static remove ({path=RemoveI.req, obj=RemoveI.req, ...kwargs}={}) {
+    const {DotObject} = Import;
     RemoveI.extra(kwargs);
     RemoveI.typecheck(arguments);
     return DotObject.remove(path, obj);
   }
 
-  static transform ({recipe=TransformI.req, source=TransformI.req, ...kwargs}={}) {
+  static transform ({recipe=TransformI.req, obj=TransformI.req, ...kwargs}={}) {
+    const {DotObject} = Import;
     TransformI.extra(kwargs);
     TransformI.typecheck(arguments);
-    return DotObject.transform(recipe, source);
+    return DotObject.transform(recipe, obj);
   }
 
   static dot ({obj=DotI.req, ...kwargs}={}) {
+    const {DotObject} = Import;
     DotI.extra(kwargs);
     DotI.typecheck(arguments);
     return DotObject.dot(obj);
   }
 
   static jsonsToRows ({jsons=JsonsI.req, ...kwargs}={}) {
+    const {DotObject} = Import;
     JsonsI.extra(kwargs);
     JsonsI.typecheck(arguments);
     const headers = [];
@@ -141,6 +152,7 @@ class Dottie {
   }
 
   static rowsToJsons ({rows=RowsI.req, ...kwargs}={}) {
+    const {DotObject} = Import;
     RowsI.extra(kwargs);
     RowsI.typecheck(arguments);
     const headers = rows[0];
@@ -169,6 +181,7 @@ class Dottie {
     Sets up {}.dottie and [].dottie methods
    */
   static augment (O=null, A=null) {
+    const {DotObject} = Import;
     if (O === null) O = Object;
     if (A === null) A = Array;
     Object.defineProperty(A.prototype, 'dottie', {
@@ -223,3 +236,4 @@ class Dottie {
   }
 
 }
+

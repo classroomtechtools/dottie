@@ -26,6 +26,7 @@ function set(obj, path, value) {
  * @return {Any}
  */
 function get(obj, path) {
+  const {Dottie} = Import;
   return Dottie.get({path, obj});
 }
 
@@ -38,6 +39,7 @@ function get(obj, path) {
  * @return {Object}
  */
 function move(obj, sourcePath, destPath) {
+  const {Dottie} = Import;
   return Dottie.move({sourcePath, destPath, obj})
 }
 
@@ -51,6 +53,7 @@ function move(obj, sourcePath, destPath) {
  * @returns {Object}
  */
 function copy (obj, sourcePath, destObject, destPath) {
+  const {Dottie} = Import;
   return Dottie.copy({sourcePath, destPath, obj, destObject});
 }
 
@@ -64,6 +67,7 @@ function copy (obj, sourcePath, destObject, destPath) {
  * @return {Object}
  */
 function transfer (obj, sourcePath, target, destPath) {
+  const {Dottie} = Import;
   return Dottie.transfer({sourcePath, destPath, obj, target});
 }
 
@@ -74,6 +78,7 @@ function transfer (obj, sourcePath, target, destPath) {
  * @return {Object}
  */
 function expand (obj) {
+  const {Dottie} = Import;
   return Dottie.expand({obj});
 }
 
@@ -84,6 +89,7 @@ function expand (obj) {
  * @param {String} path
  */
 function delete_(obj, path) {
+  const {Dottie} = Import;
   return Dottie.delete_({obj, path});
 }
 
@@ -95,6 +101,7 @@ function delete_(obj, path) {
  * @return {Any}
  */
 function remove(obj, path) {
+  const {Dottie} = Import;
   return Dottie.remove({obj, path});
 }
 
@@ -106,6 +113,7 @@ function remove(obj, path) {
  * @return {Object}
  */
 function delete_(obj, path) {
+  const {Dottie} = Import;
   return Dottie.delete_({obj, path});
 }
 
@@ -117,6 +125,7 @@ function delete_(obj, path) {
  * return {Object}
  */
 function transform(obj, recipe) {
+  const {Dottie} = Import;
   return Dottie.transform({recipe, obj});
 }
 
@@ -127,6 +136,7 @@ function transform(obj, recipe) {
  * @return {Object}
  */
 function dot(obj) {
+  const {Dottie} = Import;
   return Dottie.dot({obj});
 }
 
@@ -137,6 +147,7 @@ function dot(obj) {
  * @return {Array[]}
  */
 function jsonsToRows (jsons) {
+  const {Dottie} = Import;
   return Dottie.jsonsToRows({jsons});
 }
 
@@ -147,6 +158,7 @@ function jsonsToRows (jsons) {
  * @return {Object[]}
  */
 function rowsToJsons(rows) {
+  const {Dottie} = Import;
   return Dottie.rowsToJsons({rows});
 }
 
@@ -157,5 +169,6 @@ function rowsToJsons(rows) {
  * @param {Array} Array
  */
 function augment (Object, Array) {
+  const {Dottie} = Import;
   Dottie.augment(Object, Array);
 }
