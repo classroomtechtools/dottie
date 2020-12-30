@@ -14,11 +14,10 @@ I also use an array of jsons grabbed from external APIs, and write them to sprea
 
 ## Quickstart
 
-Library project id: `MFuaGnV66TzMY39sIo0MYtIziaeauqu6_`. Using identifier `dottie` use autocomplete to see which methods are available for object minipulation. Any parameter `obj` is the object which is the source.
+- Script ID: `1k_EGzQ6FvfMlyifgPxcBqgPe3TQSWLFGF9VrDWAGU1wfOFnOFsRbI8V_`
+- [Documentation](https://classroomtechtools.github.io/dottie/)
 
-## NPM
-
-`npm install @classroomtechtools/dottie`
+Using identifier `dottie` use autocomplete to see which methods are available for object minipulation. Any parameter `obj` is the object which is the source.
 
 ## API
 

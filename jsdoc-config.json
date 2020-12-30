@@ -4,7 +4,7 @@
     },
     "plugins": ["plugins/markdown"],
     "templates": {
-        "referenceTitle": "Manipulate objects and their properties. Build jsons with sanity. Convert an array of jsons to spreadsheet-friendly 2d arrays, and back again. Made a cinch."
+        "referenceTitle": "dottie by Classroom Tech Tools."
     },
     "markdown": {
         "excludeTags": ["author"]

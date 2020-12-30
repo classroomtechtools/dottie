@@ -3,6 +3,7 @@
  * @returns {DottieLib}
  */
 function lib() {
+  const {Dottie} = Import;
   return Dottie;
 }
 
@@ -15,6 +16,7 @@ function lib() {
  * @returns {Object}
  */
 function set(obj, path, value) {
+  const {Dottie} = Import;
   return Dottie.set({path, value, obj});
 }
 

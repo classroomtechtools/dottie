@@ -1,5 +1,5 @@
 import test from 'ava';
-import dottie from '../src/modules/index.js';
+import dottie from '../src/modules/Dottie.js';
 
 let obj = {};
 let path, value;
