@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>
+      Home - Documentation
+  </title>
+
+  <link href="https://www.braintreepayments.com/images/favicon-ccda0b14.png" rel="icon" type="image/png">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+  <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+  <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+  
+
+  
+
+  <!-- start Mixpanel -->
+  <script type="text/javascript">(function(e,a){if(!a.__SV){var b=window;try{var c,l,i,j=b.location,g=j.hash;c=function(a,b){return(l=a.match(RegExp(b+"=([^&]*)")))?l[1]:null};g&&c(g,"state")&&(i=JSON.parse(decodeURIComponent(c(g,"state"))),"mpeditor"===i.action&&(b.sessionStorage.setItem("_mpcehash",g),history.replaceState(i.desiredHash||"",e.title,j.pathname+j.search)))}catch(m){}var k,h;window.mixpanel=a;a._i=[];a.init=function(b,c,f){function e(b,a){var c=a.split(".");2==c.length&&(b=b[c[0]],a=c[1]);b[a]=function(){b.push([a].concat(Array.prototype.slice.call(arguments,
+  0)))}}var d=a;"undefined"!==typeof f?d=a[f]=[]:f="mixpanel";d.people=d.people||[];d.toString=function(b){var a="mixpanel";"mixpanel"!==f&&(a+="."+f);b||(a+=" (stub)");return a};d.people.toString=function(){return d.toString(1)+".people (stub)"};k="disable time_event track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config reset people.set people.set_once people.increment people.append people.union people.track_charge people.clear_charges people.delete_user".split(" ");
+  for(h=0;h<k.length;h++)e(d,k[h]);a._i.push([b,c,f])};a.__SV=1.2;b=e.createElement("script");b.type="text/javascript";b.async=!0;b.src="undefined"!==typeof MIXPANEL_CUSTOM_LIB_URL?MIXPANEL_CUSTOM_LIB_URL:"file:"===e.location.protocol&&"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\/\//)?"https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js":"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";c=e.getElementsByTagName("script")[0];c.parentNode.insertBefore(b,c)}})(document,window.mixpanel||[]);
+  mixpanel.init("1919205b2da72e4da3b9b6639b444d59");</script>
+  <!-- end Mixpanel -->
+</head>
+
+<body>
+  <svg style="display: none;">
+    <defs>
+      <symbol id="linkIcon" fill="#706d77" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 0h24v24H0z" fill="none"/>
+          <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+  <label for="nav-trigger" class="navicon-button x">
+    <div class="navicon"></div>
+  </label>
+
+  <label for="nav-trigger" class="overlay"></label>
+
+  <div class="top-nav-wrapper">
+    <ul>
+      <li  class="active" >
+        <a href="index.html">
+          
+          
+            <svg fill="#178232" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+              <path d="M0 0h24v24H0z" fill="none"/>
+            </svg>
+          
+        </a>
+      </li>
+
+      
+
+    </ul>
+  </div>
+
+  <nav>
+    <h3 class="reference-title">
+      Manipulate objects and their properties. Build jsons with sanity. Convert an array of jsons to spreadsheet-friendly 2d arrays, and back again. Made a cinch.
+    </h3>
+
+    
+
+    <h3 id="global-nav">Global</h3><ul><li><a href="global.html#augment">augment</a></li><li><a href="global.html#copy">copy</a></li><li><a href="global.html#delete_">delete_</a></li><li><a href="global.html#dot">dot</a></li><li><a href="global.html#expand">expand</a></li><li><a href="global.html#get">get</a></li><li><a href="global.html#jsonsToRows">jsonsToRows</a></li><li><a href="global.html#lib">lib</a></li><li><a href="global.html#move">move</a></li><li><a href="global.html#remove">remove</a></li><li><a href="global.html#rowsToJsons">rowsToJsons</a></li><li><a href="global.html#set">set</a></li><li><a href="global.html#transfer">transfer</a></li><li><a href="global.html#transform">transform</a></li></ul>
+  </nav>
+
+  <div id="main">
+    
+
+    
+      
+
+
+
+    
+
+      
+
+
+  <section class="readme">
+    <article>
+      <h1>dottie.gs</h1>
+<p>Manipulate objects and their properties. Build jsons with sanity. Convert an array of jsons to spreadsheet-friendly 2d arrays, and back again. Made a cinch.</p>
+<p>With thanks to <a href="https://github.com/rhalff/dot-object">dot-object</a>.</p>
+<h2>Motivation</h2>
+<p>Working with jsons and objects can be tiresome to write out by hand, and there are easier ways to manipulate objects which other javascript frameworks can use. Why not bring that to gas?</p>
+<p>I wrote this when working with the Google Chat Bot <a href="https://developers.google.com/hangouts/chat/how-tos/cards-onclick">cards service</a>, which requires writing jsons by hand. It was way easier for me to use dot notation.</p>
+<p>I also use an array of jsons grabbed from external APIs, and write them to spreadsheets. So I added the two methods <code>jsonsToRows</code> and the reverse <code>rowsToJsons</code>, whose functionality depends upon the underyling methods.</p>
+<h2>Quickstart</h2>
+<p>Library project id: <code>MFuaGnV66TzMY39sIo0MYtIziaeauqu6_</code>. Using identifier <code>dottie</code> use autocomplete to see which methods are available for object minipulation. Any parameter <code>obj</code> is the object which is the source.</p>
+<h2>NPM</h2>
+<p><code>npm install @classroomtechtools/dottie</code></p>
+<h2>API</h2>
+<p>The file <code>export.gs</code> illustrates all of the methods that are available when used as an imported library. Autocomplete assists with this, too.</p>
+<p>Alternatively, use it as an inline library (copied and pasted into your project), and see the Dottie class in <code>interface.gs</code> for the API.</p>
+<p>If you use <code>.augment</code> this enables the &quot;advanced&quot; API where you have methods on <code>Object.prototype</code> and <code>Array.prototype</code>.</p>
+<h2>Example</h2>
+<p>Writing a Google Chat Bot using the card service using long-form jsons was a bit difficult. This is much more readable (and easier to edit) than writing out the object in long form:</p>
+<pre class="prettyprint source lang-js"><code>const cards = {};
+const path = 'cards[0].sections[0].widgets[0].keyValue';
+dottie.set(cards, `${path}.topLabel`, 'Ticket no.');
+dottie.set(card,s `${path}.content`, ticketId.toString());
+dottie.set(cards, `${path}.contentMultiline`, false);
+dottie.set(cards, `${path}.bottomLabel`, item.priority.toUpperCase());
+dottie.set(cards, `${path}.icon`, 'TICKET'); 
+Logger.log(cards);
+/*
+{
+  cards: [
+    {
+      sections: [
+        {
+          widgets: [
+            {
+              keyValue: {
+                topLabel: 'Ticket no.',
+                content: '&lt;id>',
+                contentMultiline: false,
+                bottomLabel: 'HIGH'
+              }
+          ]
+        }
+      ]
+    }
+  ]
+*/
+</code></pre>
+<h2>Howto as imported library</h2>
+<p>Library project id: <code>MFuaGnV66TzMY39sIo0MYtIziaeauqu6_</code></p>
+<p>Methods on namespace <code>dottie</code> (or whatever identifier you choose) have autocomplete enabled. See <code>export.gs</code> for complete information, or just use autocomplete.</p>
+<h3>Example usage</h3>
+<pre class="prettyprint source lang-js"><code>const obj = dottie.set({}, 'path.to.value', 100);
+Logger.log(obj);
+/* 
+{
+  path: {
+    to: {
+      value: 100
+    }
+  }
+}
+*/
+const value = dottie.get(obj, 'path.to.value');
+Logger.log(value);
+/*
+100
+*/
+
+const obj = dottie.set({}, 'path.to.array[0].name', 'Bob');
+Logger.log(obj);
+/*
+{
+  path: {
+    to: {
+      array: [
+        {name: &quot;Bob&quot;}
+      ]
+    }
+  }
+}
+*/
+</code></pre>
+<h2>Howto as inline library</h2>
+<p>Alternatively, copy and paste the <code>interface.gs</code>, <code>dot-object.gs</code> files into your project. Copying and pasting <code>export.gs</code> into your project will get you <code>set</code>, <code>get</code>, <code>move</code>, etc methods in the global space.</p>
+<p>More &quot;advanced&quot; usage would be to call <code>Dottie.augment()</code> when used as an inline library, which provides you <code>{}.dottie</code> and <code>[].dottie</code> namespaces. The reason this way of working is tagged as &quot;advanced&quot; is that you have to interact with the methods with object parameters, and you'll have to look up in <code>Dottie</code> class static methods as needed.</p>
+<p>Furthermore, any parameters named <code>obj</code> in the published API is not needed to be passed when used in this manner.</p>
+<h3>Usage as inline library</h3>
+<p>Same as above, except no need for the <code>dottie</code> namespace … or … if you call <code>Dottie.augment()</code> you will then be able to do this:</p>
+<pre class="prettyprint source lang-js"><code>const obj = {}.dottie.set({path: 'path.to.value', value: 100});
+Logger.log(obj);
+/* 
+{
+  path: {
+    to: {
+      value: 100
+    }
+  }
+}
+*/
+const value = obj.dottie.get({path: 'path.to.value'});
+Logger.log(value);
+/*
+100
+*/
+
+const obj = {}.dottie.set({path: 'path.to.array[0].name', value: 'Bob'});
+Logger.log(obj);
+/*
+{
+  path: {
+    to: {
+      array: [
+        {name: &quot;Bob&quot;}
+      ]
+    }
+  }
+}
+*/
+</code></pre>
+<h2>Notes</h2>
+<h3>Usage of <code>dottie.augment()</code></h3>
+<p>You can get <code>{}.dottie</code> and <code>[].dottie</code> mode while using dottie as an imported library if you so which, by calling <code>dottie.augment(Object, Array)</code>. This is not highly advertised as it sounds like a bit of pain; you'll have to look up the methods and usage on this github (since it won't be in your project).  Or maybe the conventions used here are so obvious you won't have to look them up?</p>
+<h3>Errors thrown</h3>
+<p>It is the author's opinion that a library should throw errors if its API is used wrongly, instead of failing at some obscure code path. This ensures that the developer understands how to use the library correctly.</p>
+<p>For that reason, type-checking is enabled. Dottie throws an error with explanation if:</p>
+<ul>
+<li>its methods are passed with incompatible or unexpected types</li>
+<li>if required parameters are not passed</li>
+<li>more than the necessary parameters are passed</li>
+</ul>
+<h2>Special Methods</h2>
+<h3>dottie.jsonsToRows</h3>
+<p>Takes an array of json objects and converts into a spreadsheet-friendly 2d array. The columns are named with dot notation according to the path of the properties. The first row contains the headers/columns (in alphabetical order) and the remaining rows are the values.</p>
+<p>Exmaple:</p>
+<pre class="prettyprint source lang-js"><code>const jsons = [
+  {one: {two: 2}},
+  {one: {two: 2, three: 3}},
+  {another: 'one'}
+];
+const result = dottie.jsonsToRows(jsons);
+Logger.log(result);
+</code></pre>
+<p>Result is (formatted for readability):</p>
+<pre class="prettyprint source lang-js"><code>[
+  ['another', 'one.three', 'one.two'],
+  [  null,       null,        2.0],
+  [  null,       3.0,         2.0],
+  [  'one',      null,        null]
+]
+</code></pre>
+<h3>dottie.rowsToJsons</h3>
+<p>This is the reverse of <code>dottie.jsonsToRows</code>.</p>
+    </article>
+  </section>
+
+
+    
+
+
+  </div>
+
+  <br class="clear">
+
+  <footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a>
+  </footer>
+
+  <script src="scripts/linenumber.js"></script>
+  <script src="scripts/pagelocation.js"></script>
+
+  
+
+</body>
+</html>

@@ -84,17 +84,6 @@ function expand (obj) {
 
 
 /**
- * Delete a value using dot notation
- * @param {Object} obj
- * @param {String} path
- */
-function delete_(obj, path) {
-  const {Dottie} = Import;
-  return Dottie.delete_({obj, path});
-}
-
-
-/**
  * Remove a value using dot notation (and keep array indexes)
  * @param {Object} obj
  * @param {String} path

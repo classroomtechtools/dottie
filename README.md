@@ -16,6 +16,10 @@ I also use an array of jsons grabbed from external APIs, and write them to sprea
 
 Library project id: `MFuaGnV66TzMY39sIo0MYtIziaeauqu6_`. Using identifier `dottie` use autocomplete to see which methods are available for object minipulation. Any parameter `obj` is the object which is the source.
 
+## NPM
+
+`npm install @classroomtechtools/dottie`
+
 ## API
 
 The file `export.gs` illustrates all of the methods that are available when used as an imported library. Autocomplete assists with this, too.

@@ -1,0 +1,16 @@
+{
+    "source": {
+        "include": ["src/scripts/Code.js", "src/modules/Dottie.js"]
+    },
+    "plugins": ["plugins/markdown"],
+    "templates": {
+        "referenceTitle": "Manipulate objects and their properties. Build jsons with sanity. Convert an array of jsons to spreadsheet-friendly 2d arrays, and back again. Made a cinch."
+    },
+    "markdown": {
+        "excludeTags": ["author"]
+    },
+    "opts": {
+        "template": "../jsdoc-template",
+        "destination": "./docs"
+    }
+}
