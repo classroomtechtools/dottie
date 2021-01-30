@@ -225,9 +225,20 @@ function dot(obj) {
 
 
 /**
- * Convert an array of jsons to 2d array
- * @param {Object[]} jsons
+ * Convert an array of jsons to a 2d array that can be used to populate a Google Spreadsheet with unique headers. The retuned object's first element are the header values whose string values are derived via path notation, and any nested objects or arrays follow the naming convention provided by dots (for objects) and brackets (for arrays).
+ * @param {Object[]} jsons - An array of objects, which can contain native values or nested objects with native values
  * @return {Array[]}
+ * @example
+ const jsons = [{
+   obj: {
+     key: 'value'
+   },
+   arr: [1, 2]
+ }];
+ const result = Dottie.jsonsToRows(jsons);
+ Logger.log(result);
+ // [ ['obj.key', 'arr[0]', 'arry[1]'],
+ //   ['value',   1,        2]
  */
 function jsonsToRows (jsons) {
   const {Dottie} = Import;

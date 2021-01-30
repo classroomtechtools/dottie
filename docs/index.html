@@ -104,16 +104,12 @@
 <li><a href="https://classroomtechtools.github.io/dottie/">Documentation</a></li>
 </ul>
 <p>Using identifier <code>dottie</code> use autocomplete to see which methods are available for object minipulation. Any parameter <code>obj</code> is the object which is the source.</p>
-<h2>API</h2>
-<p>The file <code>export.gs</code> illustrates all of the methods that are available when used as an imported library. Autocomplete assists with this, too.</p>
-<p>Alternatively, use it as an inline library (copied and pasted into your project), and see the Dottie class in <code>interface.gs</code> for the API.</p>
-<p>If you use <code>.augment</code> this enables the &quot;advanced&quot; API where you have methods on <code>Object.prototype</code> and <code>Array.prototype</code>.</p>
 <h2>Example</h2>
 <p>Writing a Google Chat Bot using the card service using long-form jsons was a bit difficult. This is much more readable (and easier to edit) than writing out the object in long form:</p>
 <pre class="prettyprint source lang-js"><code>const cards = {};
 const path = 'cards[0].sections[0].widgets[0].keyValue';
 dottie.set(cards, `${path}.topLabel`, 'Ticket no.');
-dottie.set(card,s `${path}.content`, ticketId.toString());
+dottie.set(cards, `${path}.content`, ticketId.toString());
 dottie.set(cards, `${path}.contentMultiline`, false);
 dottie.set(cards, `${path}.bottomLabel`, item.priority.toUpperCase());
 dottie.set(cards, `${path}.icon`, 'TICKET'); 
@@ -139,9 +135,6 @@ Logger.log(cards);
   ]
 */
 </code></pre>
-<h2>Howto as imported library</h2>
-<p>Library project id: <code>MFuaGnV66TzMY39sIo0MYtIziaeauqu6_</code></p>
-<p>Methods on namespace <code>dottie</code> (or whatever identifier you choose) have autocomplete enabled. See <code>export.gs</code> for complete information, or just use autocomplete.</p>
 <h3>Example usage</h3>
 <pre class="prettyprint source lang-js"><code>const obj = dottie.set({}, 'path.to.value', 100);
 Logger.log(obj);
@@ -174,6 +167,10 @@ Logger.log(obj);
 }
 */
 </code></pre>
+<h2>API</h2>
+<p>The file <code>export.gs</code> illustrates all of the methods that are available when used as an imported library. Autocomplete assists with this, too.</p>
+<p>Alternatively, use it as an inline library (copied and pasted into your project), and see the Dottie class in <code>interface.gs</code> for the API.</p>
+<p>If you use <code>.augment</code> this enables the &quot;advanced&quot; API where you have methods on <code>Object.prototype</code> and <code>Array.prototype</code>.</p>
 <h2>Howto as inline library</h2>
 <p>Alternatively, copy and paste the <code>interface.gs</code>, <code>dot-object.gs</code> files into your project. Copying and pasting <code>export.gs</code> into your project will get you <code>set</code>, <code>get</code>, <code>move</code>, etc methods in the global space.</p>
 <p>More &quot;advanced&quot; usage would be to call <code>Dottie.augment()</code> when used as an inline library, which provides you <code>{}.dottie</code> and <code>[].dottie</code> namespaces. The reason this way of working is tagged as &quot;advanced&quot; is that you have to interact with the methods with object parameters, and you'll have to look up in <code>Dottie</code> class static methods as needed.</p>

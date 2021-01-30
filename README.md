@@ -19,14 +19,6 @@ I also use an array of jsons grabbed from external APIs, and write them to sprea
 
 Using identifier `dottie` use autocomplete to see which methods are available for object minipulation. Any parameter `obj` is the object which is the source.
 
-## API
-
-The file `export.gs` illustrates all of the methods that are available when used as an imported library. Autocomplete assists with this, too.
-
-Alternatively, use it as an inline library (copied and pasted into your project), and see the Dottie class in `interface.gs` for the API.
-
-If you use `.augment` this enables the "advanced" API where you have methods on `Object.prototype` and `Array.prototype`. 
-
 ## Example
 
 Writing a Google Chat Bot using the card service using long-form jsons was a bit difficult. This is much more readable (and easier to edit) than writing out the object in long form:
@@ -35,7 +27,7 @@ Writing a Google Chat Bot using the card service using long-form jsons was a bit
 const cards = {};
 const path = 'cards[0].sections[0].widgets[0].keyValue';
 dottie.set(cards, `${path}.topLabel`, 'Ticket no.');
-dottie.set(card,s `${path}.content`, ticketId.toString());
+dottie.set(cards, `${path}.content`, ticketId.toString());
 dottie.set(cards, `${path}.contentMultiline`, false);
 dottie.set(cards, `${path}.bottomLabel`, item.priority.toUpperCase());
 dottie.set(cards, `${path}.icon`, 'TICKET'); 
@@ -61,12 +53,6 @@ Logger.log(cards);
   ]
 */
 ```
-
-## Howto as imported library
-
-Library project id: `MFuaGnV66TzMY39sIo0MYtIziaeauqu6_`
-
-Methods on namespace `dottie` (or whatever identifier you choose) have autocomplete enabled. See `export.gs` for complete information, or just use autocomplete.
 
 ### Example usage
 
@@ -102,6 +88,14 @@ Logger.log(obj);
 }
 */
 ```
+
+## API
+
+The file `export.gs` illustrates all of the methods that are available when used as an imported library. Autocomplete assists with this, too.
+
+Alternatively, use it as an inline library (copied and pasted into your project), and see the Dottie class in `interface.gs` for the API.
+
+If you use `.augment` this enables the "advanced" API where you have methods on `Object.prototype` and `Array.prototype`. 
 
 
 ## Howto as inline library
