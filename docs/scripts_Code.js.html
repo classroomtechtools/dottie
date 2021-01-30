@@ -75,7 +75,7 @@
 
     
 
-    <h3>Classes</h3><ul><li id="dottie-nav"><a href="dottie.html">dottie</a><ul class='methods'><li data-type="method" id="dottie-copy-nav"><a href="dottie.html#.copy">copy</a></li><li data-type="method" id="dottie-delete-nav"><a href="dottie.html#.delete">delete</a></li><li data-type="method" id="dottie-dot-nav"><a href="dottie.html#.dot">dot</a></li><li data-type="method" id="dottie-expand-nav"><a href="dottie.html#.expand">expand</a></li><li data-type="method" id="dottie-get-nav"><a href="dottie.html#.get">get</a></li><li data-type="method" id="dottie-jsonsToRows-nav"><a href="dottie.html#.jsonsToRows">jsonsToRows</a></li><li data-type="method" id="dottie-move-nav"><a href="dottie.html#.move">move</a></li><li data-type="method" id="dottie-remove-nav"><a href="dottie.html#.remove">remove</a></li><li data-type="method" id="dottie-rowsToJsons-nav"><a href="dottie.html#.rowsToJsons">rowsToJsons</a></li><li data-type="method" id="dottie-set-nav"><a href="dottie.html#.set">set</a></li><li data-type="method" id="dottie-transfer-nav"><a href="dottie.html#.transfer">transfer</a></li><li data-type="method" id="dottie-transform-nav"><a href="dottie.html#.transform">transform</a></li></ul></li></ul><h3 id="global-nav">Global</h3><ul><li><a href="global.html#augment">augment</a></li><li><a href="global.html#copy">copy</a></li><li><a href="global.html#delete_">delete_</a></li><li><a href="global.html#dot">dot</a></li><li><a href="global.html#expand">expand</a></li><li><a href="global.html#get">get</a></li><li><a href="global.html#jsonsToRows">jsonsToRows</a></li><li><a href="global.html#lib">lib</a></li><li><a href="global.html#move">move</a></li><li><a href="global.html#remove">remove</a></li><li><a href="global.html#rowsToJsons">rowsToJsons</a></li><li><a href="global.html#set">set</a></li><li><a href="global.html#transfer">transfer</a></li><li><a href="global.html#transform">transform</a></li></ul>
+    <h3>Classes</h3><ul><li id="dottie-nav"><a href="dottie.html">dottie</a><ul class='methods'><li data-type="method" id="dottie-copy-nav"><a href="dottie.html#.copy">copy</a></li><li data-type="method" id="dottie-delete-nav"><a href="dottie.html#.delete">delete</a></li><li data-type="method" id="dottie-dot-nav"><a href="dottie.html#.dot">dot</a></li><li data-type="method" id="dottie-expand-nav"><a href="dottie.html#.expand">expand</a></li><li data-type="method" id="dottie-get-nav"><a href="dottie.html#.get">get</a></li><li data-type="method" id="dottie-jsonsToRows-nav"><a href="dottie.html#.jsonsToRows">jsonsToRows</a></li><li data-type="method" id="dottie-move-nav"><a href="dottie.html#.move">move</a></li><li data-type="method" id="dottie-remove-nav"><a href="dottie.html#.remove">remove</a></li><li data-type="method" id="dottie-rowsToJsons-nav"><a href="dottie.html#.rowsToJsons">rowsToJsons</a></li><li data-type="method" id="dottie-set-nav"><a href="dottie.html#.set">set</a></li><li data-type="method" id="dottie-transfer-nav"><a href="dottie.html#.transfer">transfer</a></li><li data-type="method" id="dottie-transform-nav"><a href="dottie.html#.transform">transform</a></li></ul></li></ul><h3 id="global-nav">Global</h3><ul><li><a href="global.html#augment">augment</a></li><li><a href="global.html#copy">copy</a></li><li><a href="global.html#delete_">delete_</a></li><li><a href="global.html#dot">dot</a></li><li><a href="global.html#expand">expand</a></li><li><a href="global.html#get">get</a></li><li><a href="global.html#jsonsToRows">jsonsToRows</a></li><li><a href="global.html#move">move</a></li><li><a href="global.html#remove">remove</a></li><li><a href="global.html#rowsToJsons">rowsToJsons</a></li><li><a href="global.html#set">set</a></li><li><a href="global.html#transfer">transfer</a></li><li><a href="global.html#transform">transform</a></li></ul>
   </nav>
 
   <div id="main">
@@ -91,7 +91,8 @@
 <section>
   <article>
     <pre class="prettyprint source linenums"><code>/**
- * lib
+ * Returns the library itself; only useful for internal purposes such as testing
+ * @ignore
  * @returns {DottieLib}
  */
 function lib() {
@@ -101,11 +102,16 @@ function lib() {
 
 
 /**
- * To convert manually per string use
+ * Sets `value` at the location in `obj` as determined by `path`
  * @param {Object} obj
  * @param {String} path
  * @param {Any} value
  * @returns {Object}
+ * @example
+const path = 'path.to.key';
+let obj = {};
+obj = dottie.set(obj, path, 'value');
+Logger.log(obj.path.to.key);  // 'value'
  */
 function set(obj, path, value) {
   const {Dottie} = Import;
@@ -114,10 +120,16 @@ function set(obj, path, value) {
 
 
 /**
- * Picks a value from the object without removing it. Returns null if not present.
+ * Returns the value at location indicated by `path` of `obj`
  * @param {Object} obj
  * @param {String} path
  * @return {Any}
+ * @example
+const path = 'path.to.key';
+let obj = {};
+obj = dottie.set(obj, path, 'value');
+const result = dottie.get(obj, path);
+Logger.log(result);  // 'value'
  */
 function get(obj, path) {
   const {Dottie} = Import;
@@ -131,6 +143,16 @@ function get(obj, path) {
  * @param {String} sourcePath
  * @param {String} destPath
  * @return {Object}
+ * @example
+const path = 'path.to.key';
+const diffPath = 'a.different.path.to.key';
+let obj = {};
+obj = dottie.set(obj, path, 'value');
+obj = dottie.move(obj, path, diffPath);
+const first = dottie.get(obj, path);
+const second = dottie.get(obj, diffPath);
+Logger.log(first);  // undefined
+Logger.log(second);  // 'value'
  */
 function move(obj, sourcePath, destPath) {
   const {Dottie} = Import;
@@ -139,12 +161,21 @@ function move(obj, sourcePath, destPath) {
 
 
 /**
- * Copy property from one object to another object. If sourcePath is undefined, nothing changed
+ * Copy property from one object to another object. If sourcePath is undefined, nothing changed. It returns the destination object, but the operation is in-place.
  * @param {Object} obj
  * @param {String} sourcePath
  * @param {Object} destObject
  * @param {String} destPath
  * @returns {Object}
+ * @example
+const path = 'path.to.key';
+const source = dottie.set({}, path, 'value');
+const dest = {};
+dottie.copy(source, dest, path, 'new.path.to.key');
+const present = dottie.get(source, path);
+const value = dottie.get(dest, path);
+Logger.log(present);  // undefined
+Logger.log(value);  // 'value'
  */
 function copy (obj, sourcePath, destObject, destPath) {
   const {Dottie} = Import;
@@ -153,12 +184,21 @@ function copy (obj, sourcePath, destObject, destPath) {
 
 
 /**
- * Transfer property from one object to another. Removes from sourceObject. If sourcePath is undefined, nothing happens
+ * Transfer property from one object to another. Removes from sourceObject. If sourcePath is undefined, nothing happens. Same as copy except does not remove from source.
  * @param {Object} obj
  * @param {String} sourcePath
  * @param {Object} target
  * @param {String} destPath
  * @return {Object}
+ * @example
+const path = 'path.to.key';
+const source = dottie.set({}, path, 'value');
+const dest = {};
+dottie.copy(source, dest, path, 'new.path.to.key');
+const present = dottie.get(source, path);
+const value = dottie.get(dest, path);
+Logger.log(present);  // undefined
+Logger.log(value);  // 'value'
  */
 function transfer (obj, sourcePath, target, destPath) {
   const {Dottie} = Import;
@@ -235,7 +275,7 @@ function dot(obj) {
    },
    arr: [1, 2]
  }];
- const result = Dottie.jsonsToRows(jsons);
+ const result = dottie.jsonsToRows(jsons);
  Logger.log(result);
  // [ ['obj.key', 'arr[0]', 'arry[1]'],
  //   ['value',   1,        2]
@@ -258,9 +298,16 @@ function rowsToJsons(rows) {
 
 
 /**
- * Add dottie namespace to Object and Array prototypes; advanced usage
- * @param {Object} Object
- * @param {Array} Array
+ * Add dottie namespace to Object and Array prototypes; entirely optional
+ * @param {Object} Object - Pass in `Object`
+ * @param {Array} Array - Pass in `Array`
+ * @example
+dottie.augment(Object, Array);
+// now can use methods on objects and arrays
+const obj = {}.dottie.set('path.to.key', 'value');
+const arr = [].dottie.jsonsToRows([{'path': 'value'}]);
+Logger.log(obj);  // {path.to.key: 'value'}
+Logger.log(arr);  // [{'path.to.key': 'value'}]
  */
 function augment (Object, Array) {
   const {Dottie} = Import;

@@ -1,5 +1,6 @@
 /**
- * lib
+ * Returns the library itself; only useful for internal purposes such as testing
+ * @ignore
  * @returns {DottieLib}
  */
 function lib() {
@@ -9,11 +10,16 @@ function lib() {
 
 
 /**
- * To convert manually per string use
+ * Sets `value` at the location in `obj` as determined by `path`
  * @param {Object} obj
  * @param {String} path
  * @param {Any} value
  * @returns {Object}
+ * @example
+const path = 'path.to.key';
+let obj = {};
+obj = dottie.set(obj, path, 'value');
+Logger.log(obj.path.to.key);  // 'value'
  */
 function set(obj, path, value) {
   const {Dottie} = Import;
@@ -22,10 +28,16 @@ function set(obj, path, value) {
 
 
 /**
- * Picks a value from the object without removing it. Returns null if not present.
+ * Returns the value at location indicated by `path` of `obj`
  * @param {Object} obj
  * @param {String} path
  * @return {Any}
+ * @example
+const path = 'path.to.key';
+let obj = {};
+obj = dottie.set(obj, path, 'value');
+const result = dottie.get(obj, path);
+Logger.log(result);  // 'value'
  */
 function get(obj, path) {
   const {Dottie} = Import;
@@ -39,6 +51,16 @@ function get(obj, path) {
  * @param {String} sourcePath
  * @param {String} destPath
  * @return {Object}
+ * @example
+const path = 'path.to.key';
+const diffPath = 'a.different.path.to.key';
+let obj = {};
+obj = dottie.set(obj, path, 'value');
+obj = dottie.move(obj, path, diffPath);
+const first = dottie.get(obj, path);
+const second = dottie.get(obj, diffPath);
+Logger.log(first);  // undefined
+Logger.log(second);  // 'value'
  */
 function move(obj, sourcePath, destPath) {
   const {Dottie} = Import;
@@ -47,12 +69,21 @@ function move(obj, sourcePath, destPath) {
 
 
 /**
- * Copy property from one object to another object. If sourcePath is undefined, nothing changed
+ * Copy property from one object to another object. If sourcePath is undefined, nothing changed. It returns the destination object, but the operation is in-place.
  * @param {Object} obj
  * @param {String} sourcePath
  * @param {Object} destObject
  * @param {String} destPath
  * @returns {Object}
+ * @example
+const path = 'path.to.key';
+const source = dottie.set({}, path, 'value');
+const dest = {};
+dottie.copy(source, dest, path, 'new.path.to.key');
+const present = dottie.get(source, path);
+const value = dottie.get(dest, path);
+Logger.log(present);  // undefined
+Logger.log(value);  // 'value'
  */
 function copy (obj, sourcePath, destObject, destPath) {
   const {Dottie} = Import;
@@ -61,12 +92,21 @@ function copy (obj, sourcePath, destObject, destPath) {
 
 
 /**
- * Transfer property from one object to another. Removes from sourceObject. If sourcePath is undefined, nothing happens
+ * Transfer property from one object to another. Removes from sourceObject. If sourcePath is undefined, nothing happens. Same as copy except does not remove from source.
  * @param {Object} obj
  * @param {String} sourcePath
  * @param {Object} target
  * @param {String} destPath
  * @return {Object}
+ * @example
+const path = 'path.to.key';
+const source = dottie.set({}, path, 'value');
+const dest = {};
+dottie.copy(source, dest, path, 'new.path.to.key');
+const present = dottie.get(source, path);
+const value = dottie.get(dest, path);
+Logger.log(present);  // undefined
+Logger.log(value);  // 'value'
  */
 function transfer (obj, sourcePath, target, destPath) {
   const {Dottie} = Import;
@@ -143,7 +183,7 @@ function dot(obj) {
    },
    arr: [1, 2]
  }];
- const result = Dottie.jsonsToRows(jsons);
+ const result = dottie.jsonsToRows(jsons);
  Logger.log(result);
  // [ ['obj.key', 'arr[0]', 'arry[1]'],
  //   ['value',   1,        2]
@@ -166,9 +206,16 @@ function rowsToJsons(rows) {
 
 
 /**
- * Add dottie namespace to Object and Array prototypes; advanced usage
- * @param {Object} Object
- * @param {Array} Array
+ * Add dottie namespace to Object and Array prototypes; entirely optional
+ * @param {Object} Object - Pass in `Object`
+ * @param {Array} Array - Pass in `Array`
+ * @example
+dottie.augment(Object, Array);
+// now can use methods on objects and arrays
+const obj = {}.dottie.set('path.to.key', 'value');
+const arr = [].dottie.jsonsToRows([{'path': 'value'}]);
+Logger.log(obj);  // {path.to.key: 'value'}
+Logger.log(arr);  // [{'path.to.key': 'value'}]
  */
 function augment (Object, Array) {
   const {Dottie} = Import;
