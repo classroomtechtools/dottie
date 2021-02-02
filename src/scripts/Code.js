@@ -206,16 +206,16 @@ function rowsToJsons(rows) {
 
 
 /**
- * Add dottie namespace to Object and Array prototypes; entirely optional
+ * Alternative way to utilize library, where you use methods augmented on the Object and Array prototype, and use named parameters on the method calls. Optional "advanced use" mode.
  * @param {Object} Object - Pass in `Object`
  * @param {Array} Array - Pass in `Array`
  * @example
 dottie.augment(Object, Array);
+const path = 'path.to.key';
 // now can use methods on objects and arrays
-const obj = {}.dottie.set('path.to.key', 'value');
-const arr = [].dottie.jsonsToRows([{'path': 'value'}]);
-Logger.log(obj);  // {path.to.key: 'value'}
-Logger.log(arr);  // [{'path.to.key': 'value'}]
+const obj = {}.dottie.set({path, value: 'value'});
+const arr = [].dottie.jsonsToRows({jsons: [{'key': 'value'}]});
+Logger.log(obj.dottie.get({path}));  // 'value'
  */
 function augment (Object, Array) {
   const {Dottie} = Import;

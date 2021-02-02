@@ -204,8 +204,8 @@ class dottie {
   /**
    * @see {@link jsonsToRows}
    * @param {Object} namedParameters
-   * @param {Any[]} namedParameters.jsons
-   * @returns {Any[][]}
+   * @param {Object[]} namedParameters.jsons
+   * @returns {Array[]}
    */
   static jsonsToRows ({jsons=JsonsI.req, ...kwargs}={}) {
     JsonsI.extra(kwargs);

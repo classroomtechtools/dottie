@@ -182,7 +182,7 @@
 
 
   <div class="description">
-    <p>Add dottie namespace to Object and Array prototypes; entirely optional</p>
+    <p>Alternative way to utilize library, where you use methods augmented on the Object and Array prototype, and use named parameters on the method calls. Optional &quot;advanced use&quot; mode.</p>
   </div>
 
 
@@ -344,11 +344,11 @@
     
 
   <pre class="prettyprint"><code>dottie.augment(Object, Array);
+const path = 'path.to.key';
 // now can use methods on objects and arrays
-const obj = {}.dottie.set('path.to.key', 'value');
-const arr = [].dottie.jsonsToRows([{'path': 'value'}]);
-Logger.log(obj);  // {path.to.key: 'value'}
-Logger.log(arr);  // [{'path.to.key': 'value'}]</code></pre>
+const obj = {}.dottie.set({path, value: 'value'});
+const arr = [].dottie.jsonsToRows({jsons: [{'key': 'value'}]});
+Logger.log(obj.dottie.get({path}));  // 'value'</code></pre>
 
 
   </div>
