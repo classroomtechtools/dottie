@@ -72,22 +72,22 @@ function move(obj, sourcePath, destPath) {
  * Copy property from one object to another object. If sourcePath is undefined, nothing changed. It returns the destination object, but the operation is in-place.
  * @param {Object} obj
  * @param {String} sourcePath
- * @param {Object} destObject
+ * @param {Object} target
  * @param {String} destPath
  * @returns {Object}
  * @example
 const path = 'path.to.key';
 const source = dottie.set({}, path, 'value');
 const dest = {};
-dottie.copy(source, dest, path, 'new.path.to.key');
+dottie.copy(source, path, dest, 'new.path.to.key');
 const present = dottie.get(source, path);
 const value = dottie.get(dest, path);
 Logger.log(present);  // undefined
 Logger.log(value);  // 'value'
  */
-function copy (obj, sourcePath, destObject, target) {
+function copy (obj, sourcePath, target, destPath) {
   const {Dottie} = Import;
-  return Dottie.copy({sourcePath, target, obj, destObject});
+  return Dottie.copy({sourcePath, destPath, obj, target});
 }
 
 

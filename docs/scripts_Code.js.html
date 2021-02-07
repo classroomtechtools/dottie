@@ -75,7 +75,7 @@
 
     
 
-    <h3>Classes</h3><ul><li id="dottie-nav"><a href="dottie.html">dottie</a><ul class='methods'><li data-type="method" id="dottie-copy-nav"><a href="dottie.html#.copy">copy</a></li><li data-type="method" id="dottie-delete-nav"><a href="dottie.html#.delete">delete</a></li><li data-type="method" id="dottie-dot-nav"><a href="dottie.html#.dot">dot</a></li><li data-type="method" id="dottie-expand-nav"><a href="dottie.html#.expand">expand</a></li><li data-type="method" id="dottie-get-nav"><a href="dottie.html#.get">get</a></li><li data-type="method" id="dottie-jsonsToRows-nav"><a href="dottie.html#.jsonsToRows">jsonsToRows</a></li><li data-type="method" id="dottie-move-nav"><a href="dottie.html#.move">move</a></li><li data-type="method" id="dottie-remove-nav"><a href="dottie.html#.remove">remove</a></li><li data-type="method" id="dottie-rowsToJsons-nav"><a href="dottie.html#.rowsToJsons">rowsToJsons</a></li><li data-type="method" id="dottie-set-nav"><a href="dottie.html#.set">set</a></li><li data-type="method" id="dottie-transfer-nav"><a href="dottie.html#.transfer">transfer</a></li><li data-type="method" id="dottie-transform-nav"><a href="dottie.html#.transform">transform</a></li></ul></li></ul><h3 id="global-nav">Global</h3><ul><li><a href="global.html#augment">augment</a></li><li><a href="global.html#copy">copy</a></li><li><a href="global.html#delete_">delete_</a></li><li><a href="global.html#dot">dot</a></li><li><a href="global.html#expand">expand</a></li><li><a href="global.html#get">get</a></li><li><a href="global.html#jsonsToRows">jsonsToRows</a></li><li><a href="global.html#move">move</a></li><li><a href="global.html#remove">remove</a></li><li><a href="global.html#rowsToJsons">rowsToJsons</a></li><li><a href="global.html#set">set</a></li><li><a href="global.html#transfer">transfer</a></li><li><a href="global.html#transform">transform</a></li></ul>
+    <h3>Classes</h3><ul><li id="Dottie-nav"><a href="Dottie.html">Dottie</a><ul class='methods'><li data-type="method" id="Dottie-copy-nav"><a href="Dottie.html#.copy">copy</a></li><li data-type="method" id="Dottie-delete-nav"><a href="Dottie.html#.delete">delete</a></li><li data-type="method" id="Dottie-dot-nav"><a href="Dottie.html#.dot">dot</a></li><li data-type="method" id="Dottie-expand-nav"><a href="Dottie.html#.expand">expand</a></li><li data-type="method" id="Dottie-get-nav"><a href="Dottie.html#.get">get</a></li><li data-type="method" id="Dottie-jsonsToRows-nav"><a href="Dottie.html#.jsonsToRows">jsonsToRows</a></li><li data-type="method" id="Dottie-move-nav"><a href="Dottie.html#.move">move</a></li><li data-type="method" id="Dottie-remove-nav"><a href="Dottie.html#.remove">remove</a></li><li data-type="method" id="Dottie-rowsToJsons-nav"><a href="Dottie.html#.rowsToJsons">rowsToJsons</a></li><li data-type="method" id="Dottie-set-nav"><a href="Dottie.html#.set">set</a></li><li data-type="method" id="Dottie-transfer-nav"><a href="Dottie.html#.transfer">transfer</a></li><li data-type="method" id="Dottie-transform-nav"><a href="Dottie.html#.transform">transform</a></li></ul></li></ul><h3 id="global-nav">Global</h3><ul><li><a href="global.html#augment">augment</a></li><li><a href="global.html#copy">copy</a></li><li><a href="global.html#delete_">delete_</a></li><li><a href="global.html#dot">dot</a></li><li><a href="global.html#expand">expand</a></li><li><a href="global.html#get">get</a></li><li><a href="global.html#jsonsToRows">jsonsToRows</a></li><li><a href="global.html#move">move</a></li><li><a href="global.html#remove">remove</a></li><li><a href="global.html#rowsToJsons">rowsToJsons</a></li><li><a href="global.html#set">set</a></li><li><a href="global.html#transfer">transfer</a></li><li><a href="global.html#transform">transform</a></li></ul>
   </nav>
 
   <div id="main">
@@ -164,22 +164,22 @@ function move(obj, sourcePath, destPath) {
  * Copy property from one object to another object. If sourcePath is undefined, nothing changed. It returns the destination object, but the operation is in-place.
  * @param {Object} obj
  * @param {String} sourcePath
- * @param {Object} destObject
+ * @param {Object} target
  * @param {String} destPath
  * @returns {Object}
  * @example
 const path = 'path.to.key';
 const source = dottie.set({}, path, 'value');
 const dest = {};
-dottie.copy(source, dest, path, 'new.path.to.key');
+dottie.copy(source, path, dest, 'new.path.to.key');
 const present = dottie.get(source, path);
 const value = dottie.get(dest, path);
 Logger.log(present);  // undefined
 Logger.log(value);  // 'value'
  */
-function copy (obj, sourcePath, destObject, destPath) {
+function copy (obj, sourcePath, target, destPath) {
   const {Dottie} = Import;
-  return Dottie.copy({sourcePath, destPath, obj, destObject});
+  return Dottie.copy({sourcePath, destPath, obj, target});
 }
 
 
