@@ -85,9 +85,9 @@ const value = dottie.get(dest, path);
 Logger.log(present);  // undefined
 Logger.log(value);  // 'value'
  */
-function copy (obj, sourcePath, destObject, destPath) {
+function copy (obj, sourcePath, destObject, target) {
   const {Dottie} = Import;
-  return Dottie.copy({sourcePath, destPath, obj, destObject});
+  return Dottie.copy({sourcePath, target, obj, destObject});
 }
 
 
