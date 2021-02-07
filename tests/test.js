@@ -1,86 +1,86 @@
 import test from 'ava';
-import dottie from '../src/modules/Dottie.js';
+import {Dottie} from '../src/modules/Dottie.js';
 
 let obj = {};
 let path, value;
 
-test("dottie.set", t => {
+test("Dottie.set", t => {
     path = 'path.to.value';
-    dottie.set({obj, path, value: 100});
+    Dottie.set({obj, path, value: 100});
     t.true(obj.path.to.value == 100);
     path = 'path.to.array[1].name';
-    dottie.set({obj, path, value: 'name'});
+    Dottie.set({obj, path, value: 'name'});
     t.true(obj.path.to.array[1].name == 'name');
 });
 
-test("dottie.get", t => {
+test("Dottie.get", t => {
     path = 'path.to.value';
-    dottie.set({obj, path, value: 100});
-    value = dottie.get({obj, path});
+    Dottie.set({obj, path, value: 100});
+    value = Dottie.get({obj, path});
     t.true(value == 100);
     path = 'not.present';
-    value = dottie.get({obj, path});
+    value = Dottie.get({obj, path});
     t.true(value === null);
 });
 
-test("dottie.move", t => {
+test("Dottie.move", t => {
     obj = {};
     path = 'from.this';
-    dottie.set({obj, path, value: 'value'});
+    Dottie.set({obj, path, value: 'value'});
     let ppath = 'to.this';
-    dottie.move({obj, sourcePath: path, destPath: ppath});
-    value = dottie.get({obj, path:ppath});
+    Dottie.move({obj, sourcePath: path, destPath: ppath});
+    value = Dottie.get({obj, path:ppath});
     t.true(value == 'value');
 });
 
-test("dottie.copy", t => {
+test("Dottie.copy", t => {
     obj = {};
     let oobj = {};
     path = 'path.to.value';
     let ppath = 'different.path';
-    dottie.set({obj, path, value: 300});
-    dottie.copy({obj, sourcePath: path, destPath: ppath, target: oobj});
-    value = dottie.get({obj: oobj, path: ppath});
+    Dottie.set({obj, path, value: 300});
+    Dottie.copy({obj, sourcePath: path, destPath: ppath, target: oobj});
+    value = Dottie.get({obj: oobj, path: ppath});
     t.true(value == 300);
 });
 
-test("dottie.transfer", t => {
+test("Dottie.transfer", t => {
     obj = {};
     let oobj = {};
     path = 'path.to.value';
     let ppath = 'different.path.to.value';
-    dottie.set({obj, path, value: 100});
-    dottie.transfer({obj, sourcePath: path, target: oobj, destPath: ppath});
-    value = dottie.get({obj, path});
-    let vvalue = dottie.get({obj: oobj, path: ppath});
+    Dottie.set({obj, path, value: 100});
+    Dottie.transfer({obj, sourcePath: path, target: oobj, destPath: ppath});
+    value = Dottie.get({obj, path});
+    let vvalue = Dottie.get({obj: oobj, path: ppath});
     t.true(value === null);
     t.true(vvalue == 100);
 });
 
-test("dottie.expand", t => {
+test("Dottie.expand", t => {
     obj = {'path.to.value': 100};
-    let result = dottie.expand({obj});
+    let result = Dottie.expand({obj});
     t.true(result.path.to.value === 100);
 });
 
-test("dottie.delete", t => {
+test("Dottie.delete", t => {
     obj = {};
     path = 'path.to.value';
-    dottie.set({obj, path, value: 100});
-    dottie.delete({obj, path});
-    value = dottie.get({obj, path});
+    Dottie.set({obj, path, value: 100});
+    Dottie.delete({obj, path});
+    value = Dottie.get({obj, path});
     t.true(value === null);
 });
 
-test("dottie.remove", t => {
+test("Dottie.remove", t => {
     obj = {};
-    dottie.set({obj, path, value: 100});
-    dottie.remove({obj, path});
-    value = dottie.get({obj, path});
+    Dottie.set({obj, path, value: 100});
+    Dottie.remove({obj, path});
+    value = Dottie.get({obj, path});
     t.true(value == null);
 });
 
-test("dottie.transform", t => {
+test("Dottie.transform", t => {
     obj = {
         "id": 1,
         "contact": {
@@ -95,33 +95,33 @@ test("dottie.transform", t => {
         'contact.lastName': 'name.last',
         'contact.email': 'email'
     };
-    let result = dottie.transform({obj, recipe});
+    let result = Dottie.transform({obj, recipe});
     t.true(result.name.first == 'John');
 });
 
-test("dottie.dot", t => {
+test("Dottie.dot", t => {
     obj = {
       id: 'my-id',
       nes: { ted: { value: true } },
       other: { nested: { stuff: 5 } },
       some: { array: ['A', 'B'] }
     };
-    let result = dottie.dot({obj});
+    let result = Dottie.dot({obj});
     t.true(result["nes.ted.value"]);
 });
 
-test("dottie.jsonsToRows", t => {
+test("Dottie.jsonsToRows", t => {
     obj = {};
     const jsons = [
         {func: function hey() { return 'yo'; }, array: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'hi', 'i', 'k', 'l', 'm', 'n', 'o', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'hi', 'i', 'k', 'l', 'm', 'n', 'o'], one: {two: 2}},
         {array: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'hi', 'i', 'k', 'l', 'm', 'n', 'o', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'hi', 'i', 'k', 'l', 'm', 'n', 'o'], one: {two: 2, three: 3}},
         {another: 'one'}
     ];
-    const result = dottie.jsonsToRows({jsons});
+    const result = Dottie.jsonsToRows({jsons});
     t.true(result.length == 4);
 });
 
-test("dottie.rowsToJsons", t => {
+test("Dottie.rowsToJsons", t => {
     const rows = [
       [
         'another',   'array[0]',  'array[10]',
@@ -167,14 +167,14 @@ test("dottie.rowsToJsons", t => {
         null,  null
       ]
     ];
-    const result = dottie.rowsToJsons({rows});
+    const result = Dottie.rowsToJsons({rows});
     t.true(result[2].another == 'one');
 });
 
-test("dottie.augment", t=> {
+test("Dottie.augment", t=> {
     const params = [ [Object, Array], [] ];
     params.forEach(function (param) {
-        dottie.augment(...param);
+        Dottie.augment(...param);
         obj = {};
         path = 'path.to.value';
         obj.dottie.set({path, value: 100});

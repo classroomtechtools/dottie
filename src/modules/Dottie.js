@@ -56,7 +56,7 @@ const RowsI = Interface_('rows', {rows: 'array'});
  * Internal class object. Global methods interface with these methods. If `augment` is used, these methods are augmented to Objects and Arrays with these function signatures.
  * @class
  */
-class dottie {
+class Dottie {
 
   /**
    * No instances are made, all these methods are static
@@ -325,4 +325,4 @@ class dottie {
 
 }
 
-export default dottie;
+export {Dottie};
