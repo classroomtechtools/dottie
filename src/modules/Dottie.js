@@ -233,10 +233,10 @@ class Dottie {
     const row1 = [...new Set([].concat(...headers))];
     row1.sort();
     for (const [i, h] of priorityHeaders.entries()) {
-      const idx = row1.indexOf('id');
+      const idx = row1.indexOf(h);
       if (idx !== -1) {
         row1.splice(idx, 1);      // remove
-        row1.splice(i, 0, 'id');  // insert at front
+        row1.splice(i, 0, h);  // insert at front
       }
 
     }
