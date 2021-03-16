@@ -117,7 +117,7 @@ test("Dottie.jsonsToRows", t => {
         {array: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'hi', 'i', 'k', 'l', 'm', 'n', 'o', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'hi', 'i', 'k', 'l', 'm', 'n', 'o'], one: {two: 2, three: 3}},
         {another: 'one'}
     ];
-    const result = Dottie.jsonsToRows({jsons});
+    const result = Dottie.jsonsToRows({jsons, priorityHeaders: []});
     t.true(result.length == 4);
 });
 
@@ -204,7 +204,7 @@ test("Dottie.augment", t=> {
 
 });
 
-test("id gets first, and no nulls", t=> {
+test("priority headers, and no nulls", t=> {
 
     obj = {};
     const jsons = [
@@ -212,7 +212,7 @@ test("id gets first, and no nulls", t=> {
         {array: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'hi', 'i', 'k', 'l', 'm', 'n', 'o', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'hi', 'i', 'k', 'l', 'm', 'n', 'o'], one: {two: 2, three: 3}, id: 2},
         {another: 'one', one: null, id: 1}
     ];
-    const rows = Dottie.jsonsToRows({jsons});
+    const rows = Dottie.jsonsToRows({jsons, priorityHeaders: ['id']});
     t.true(rows[0][0] === 'id')
     t.true(!rows[0].includes('one'));
 

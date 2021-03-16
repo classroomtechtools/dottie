@@ -49,7 +49,7 @@ const DeleteI = Interface_('delete', {path: 'string', obj: 'object'});
 const RemoveI = Interface_('remove', {path: 'string', obj: 'object'});
 const TransformI = Interface_('transform', {recipe: 'object', obj: 'object'});
 const DotI = Interface_('dot', {obj: 'object'});
-const JsonsI = Interface_('jsons', {jsons: 'array'});
+const JsonsI = Interface_('jsons', {jsons: 'array', priorityHeaders: 'array'});
 const RowsI = Interface_('rows', {rows: 'array'});
 
 /**
@@ -206,9 +206,10 @@ class Dottie {
    * @see {@link jsonsToRows}
    * @param {Object} namedParameters
    * @param {Object[]} namedParameters.jsons
+   * @param {Array[String]} namedParameters.priorityHeaders
    * @returns {Array[]}
    */
-  static jsonsToRows ({jsons=JsonsI.req, ...kwargs}={}) {
+  static jsonsToRows ({jsons=JsonsI.req, priorityHeaders=[], ...kwargs}={}) {
     JsonsI.extra(kwargs);
     JsonsI.typecheck(arguments);
     const headers = [];
@@ -231,10 +232,13 @@ class Dottie {
     // use array generics for most efficient manner of doing this
     const row1 = [...new Set([].concat(...headers))];
     row1.sort();
-    const idx = row1.indexOf('id');
-    if (idx !== -1) {
-      row1.splice(idx, 1);
-      row1.splice(0, 0, 'id');
+    for (const [i, h] of priorityHeaders.entries()) {
+      const idx = row1.indexOf('id');
+      if (idx !== -1) {
+        row1.splice(idx, 1);      // remove
+        row1.splice(i, 0, 'id');  // insert at front
+      }
+
     }
 
     // the rest of the rows consits of the values in each column, or null if not present
@@ -287,8 +291,8 @@ class Dottie {
     !A.prototype.dottie && Object.defineProperty(A.prototype, 'dottie', {
       get: function () {
         return {
-          jsonsToRows: ({...kwargs}={}) => {
-            return me.jsonsToRows({jsons:this});
+          jsonsToRows: ({priorityHeaders=[], ...kwargs}={}) => {
+            return me.jsonsToRows({jsons:this, priorityHeaders});
           },
           rowsToJsons: ({...kwargs}={}) => {
             return me.rowsToJsons({rows: this});
