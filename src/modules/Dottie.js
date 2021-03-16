@@ -85,6 +85,7 @@ class Dottie {
    * @param {Object} namedParameters.obj
    * @param {String} namedParameters.sourcePath
    * @param {String} namedParameters.target
+   * @param {String} namedParameters.destPath
    * @return {Object}
    */
   static copy ({obj=CopyI.req, sourcePath=CopyI.req, target=CopyI.req, destPath=CopyI.req, ...kwargs}={}) {
@@ -214,16 +215,27 @@ class Dottie {
     const values = [];
 
     // save values as dotted objects and store headers
+    // remove any nulls
     for (const json of jsons) {
       const value = DotObject.dot(json);
+      for (const [k, v] of Object.entries(value)) {
+        if (v === null) {
+          delete value[k];
+        }
+      }
       headers.push(Object.keys(value));
       values.push(value);
     }
 
-    // row1 will consist of unique header columns, sorted alphabetically
+    // row1 will consist of unique header columns, sorted alphabetically with id first
     // use array generics for most efficient manner of doing this
     const row1 = [...new Set([].concat(...headers))];
     row1.sort();
+    const idx = row1.indexOf('id');
+    if (idx !== -1) {
+      row1.splice(idx, 1);
+      row1.splice(0, 0, 'id');
+    }
 
     // the rest of the rows consits of the values in each column, or null if not present
     const rows = values.map(value => row1.map(column => value[column] || null));

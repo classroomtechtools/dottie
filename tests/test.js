@@ -201,4 +201,19 @@ test("Dottie.augment", t=> {
         const jsons = [{'name.firstname': 'Adam', 'path.to.value': 100},{'name.firstname': 'Beth', 'path.to.value': 200}].map(json => json.dottie.expand());
         const rows = jsons.dottie.jsonsToRows();
     });
+
+});
+
+test("id gets first, and no nulls", t=> {
+
+    obj = {};
+    const jsons = [
+        {array: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'hi', 'i', 'k', 'l', 'm', 'n', 'o', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'hi', 'i', 'k', 'l', 'm', 'n', 'o'], one: {two: null}, id: 5},
+        {array: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'hi', 'i', 'k', 'l', 'm', 'n', 'o', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'hi', 'i', 'k', 'l', 'm', 'n', 'o'], one: {two: 2, three: 3}, id: 2},
+        {another: 'one', one: null, id: 1}
+    ];
+    const rows = Dottie.jsonsToRows({jsons});
+    t.true(rows[0][0] === 'id')
+    t.true(!rows[0].includes('one'));
+
 });
