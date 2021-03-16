@@ -1,6 +1,6 @@
 {
   "name": "@classroomtechtools/dottie",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Build jsons with sanity.",
   "main": "src/modules/Dottie.js",
   "type": "module",
