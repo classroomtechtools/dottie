@@ -220,7 +220,7 @@ class Dottie {
     for (const json of jsons) {
       const value = DotObject.dot(json);
       for (const [k, v] of Object.entries(value)) {
-        if (v === null) {
+        if (v === null || (Array.isArray(v) && v.length===0)) {
           delete value[k];
         }
       }

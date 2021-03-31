@@ -217,3 +217,16 @@ test("priority headers, and no nulls", t=> {
     t.true(!rows[0].includes('one'));
 
 });
+
+test("eliminate empty lists too", t=> {
+
+    obj = {};
+    const jsons = [
+        {array: [], one: {two: null}, id: 5},
+        {array: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'hi', 'i', 'k', 'l', 'm', 'n', 'o', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'hi', 'i', 'k', 'l', 'm', 'n', 'o'], one: {two: 2, three: 3}, id: 2},
+        {another: 'one', one: null, id: 1}
+    ];
+    const rows = Dottie.jsonsToRows({jsons, priorityHeaders: ['id']});
+    t.true(!rows[0].includes('array'));
+
+});
