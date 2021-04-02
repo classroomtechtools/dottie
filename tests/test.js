@@ -230,3 +230,15 @@ test("eliminate empty lists too", t=> {
     t.true(!rows[0].includes('array'));
 
 });
+
+test("false is represented", t=> {
+
+    obj = {};
+    const jsons = [
+        {bool: true},
+        {bool: false}
+    ];
+    const rows = Dottie.jsonsToRows({jsons, priorityHeaders: ['id']});
+    t.true(rows[2][0]===false);
+
+});

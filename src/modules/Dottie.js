@@ -242,7 +242,7 @@ class Dottie {
     }
 
     // the rest of the rows consits of the values in each column, or null if not present
-    const rows = values.map(value => row1.map(column => value[column] || null));
+    const rows = values.map(value => row1.map(column => value[column] === false ? false : value[column] || null));
 
     // concat the arrays efficiently for return
     return [row1, ...rows];
