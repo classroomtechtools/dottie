@@ -26,10 +26,11 @@ function Interface_ (name='', params={}) {
       // now that both have matching types, let's go
       for (const prop in this.params) {
         if (this.params[prop] === 'any') continue;  // type of 'any' special meaning is to skip it
+        if (argObj[prop] === undefined) continue;
         if (this.params[prop] === 'array') {
-          if (!Array.isArray(argObj[prop])) throw new Error(`Type mismatch in ${this.name}: "${prop}". Expected array but got ${typeof(argObj)}`);
+          if (!Array.isArray(argObj[prop])) throw new Error(`Type mismatch in ${this.name}: "${prop}". Expected array but got ${typeof(argObj)} instead`);
         } else if (typeof(argObj[prop]) !== this.params[prop]) {
-          throw new Error(`Type mismatch in ${this.name}: "${prop}". Expected ${typeof(this.params[prop])} but got ${typeof(argObj)}`);
+          throw new Error(`Type mismatch in ${this.name}: "${prop}". Expected ${this.params[prop]} but got ${typeof(argObj[prop])} instead`);
         }
       }
     }
@@ -49,7 +50,7 @@ const DeleteI = Interface_('delete', {path: 'string', obj: 'object'});
 const RemoveI = Interface_('remove', {path: 'string', obj: 'object'});
 const TransformI = Interface_('transform', {recipe: 'object', obj: 'object'});
 const DotI = Interface_('dot', {obj: 'object'});
-const JsonsI = Interface_('jsons', {jsons: 'array', priorityHeaders: 'array'});
+const JsonsI = Interface_('jsons', {jsons: 'array', priorityHeaders: 'array', deleteNulls: 'boolean', deleteEmptyArrays: 'boolean'});
 const RowsI = Interface_('rows', {rows: 'array'});
 
 /**
@@ -206,10 +207,12 @@ class Dottie {
    * @see {@link jsonsToRows}
    * @param {Object} namedParameters
    * @param {Object[]} namedParameters.jsons
-   * @param {Array[String]} namedParameters.priorityHeaders
+   * @param {String[]} [namedParameters.priorityHeaders=[]]
+   * @param {Boolean} [namedParameters.deleteNulls=true]
+   * @param {Boolean} [namedParameters.deleteEmptyArrays=true]
    * @returns {Array[]}
    */
-  static jsonsToRows ({jsons=JsonsI.req, priorityHeaders=[], ...kwargs}={}) {
+  static jsonsToRows ({jsons=JsonsI.req, priorityHeaders=[], deleteNulls=true, deleteEmptyArrays=true, ...kwargs}={}) {
     JsonsI.extra(kwargs);
     JsonsI.typecheck(arguments);
     const headers = [];
@@ -220,7 +223,7 @@ class Dottie {
     for (const json of jsons) {
       const value = DotObject.dot(json);
       for (const [k, v] of Object.entries(value)) {
-        if (v === null || (Array.isArray(v) && v.length===0)) {
+        if ( (deleteNulls && v === null) || (deleteEmptyArrays && Array.isArray(v) && v.length===0) ) {
           delete value[k];
         }
       }

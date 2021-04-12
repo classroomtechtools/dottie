@@ -231,6 +231,30 @@ test("eliminate empty lists too", t=> {
 
 });
 
+test("keep null when deleteNulls is false", t=> {
+
+    obj = {};
+    const jsons = [
+        {array: [], one: {two: null}, id: 5},
+        {array: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'hi', 'i', 'k', 'l', 'm', 'n', 'o', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'hi', 'i', 'k', 'l', 'm', 'n', 'o'], one: {two: 2, three: 3}, id: 2},
+        {another: 'one', one: null, id: 1}
+    ];
+    const rows = Dottie.jsonsToRows({jsons, priorityHeaders: ['id'], deleteNulls: false});
+    t.true(rows[3][2] === null);
+});
+
+test("keep empty lists when deleteEmptyArrays is false", t=> {
+
+    obj = {};
+    const jsons = [
+        {array: [], one: {two: null}, id: 5},
+        {array: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'hi', 'i', 'k', 'l', 'm', 'n', 'o', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'hi', 'i', 'k', 'l', 'm', 'n', 'o'], one: {two: 2, three: 3}, id: 2},
+        {another: 'one', one: null, id: 1}
+    ];
+    const rows = Dottie.jsonsToRows({jsons, priorityHeaders: ['id'], deleteEmptyArrays: false});
+    t.true(rows[0].includes('array'));
+});
+
 test("false is represented", t=> {
 
     obj = {};
@@ -242,3 +266,4 @@ test("false is represented", t=> {
     t.true(rows[2][0]===false);
 
 });
+

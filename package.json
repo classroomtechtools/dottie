@@ -8,7 +8,7 @@
     "build": "rollup -c",
     "dev": "rollup -c -w",
     "start": "sirv build/svelte",
-    "test": "ava",
+    "test": "npm run bundle && ava",
     "deploy": "run-s bundle clasp:push",
     "bundle": "run-s rm-artifacts build generate",
     "rm-artifacts": "rm -fr ./project/*",
