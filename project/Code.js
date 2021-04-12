@@ -176,6 +176,8 @@ function dot(obj) {
  * Convert an array of jsons to a 2d array that can be used to populate a Google Spreadsheet with unique headers. The retuned object's first element are the header values whose string values are derived via path notation, and any nested objects or arrays follow the naming convention provided by dots (for objects) and brackets (for arrays).
  * @param {Object[]} jsons - An array of objects, which can contain native values or nested objects with native values
  * @param {Array} [priorityHeaders=[]] - A list of headers you want to appear first as the headers. Note, if header does not appear in any row, it will not appear at all even though you've specified it as priority.
+ * @param {Boolean} [deleteNulls=true]
+ * @param {Boolean} [deleteEmptyArrays=true]
  * @return {Array[]}
  * @example
  const jsons = [{
@@ -189,9 +191,9 @@ function dot(obj) {
  // [ ['obj.key', 'arr[0]', 'arry[1]'],
  //   ['value',   1,        2]
  */
-function jsonsToRows (jsons, priorityHeaders=[]) {
+function jsonsToRows (jsons, priorityHeaders=[], deleteNulls=true, deleteEmptyArrays=true) {
   const {Dottie} = Import;
-  return Dottie.jsonsToRows({jsons, priorityHeaders});
+  return Dottie.jsonsToRows({jsons, priorityHeaders, deleteNulls, deleteEmptyArrays});
 }
 
 

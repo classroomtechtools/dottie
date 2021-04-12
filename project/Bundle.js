@@ -800,7 +800,7 @@ class Dottie {
    * @see {@link jsonsToRows}
    * @param {Object} namedParameters
    * @param {Object[]} namedParameters.jsons
-   * @param {Array[String]} [namedParameters.priorityHeaders=[]]
+   * @param {String[]} [namedParameters.priorityHeaders=[]]
    * @param {Boolean} [namedParameters.deleteNulls=true]
    * @param {Boolean} [namedParameters.deleteEmptyArrays=true]
    * @returns {Array[]}
