@@ -204,7 +204,7 @@ function jsonsToRows (jsons, priorityHeaders=[], deleteNulls=true, deleteEmptyAr
  */
 function rowsToJsons(rows) {
   const {Dottie} = Import;
-  return Dottie.rowsToJsons({rows, priorityHeaders});
+  return Dottie.rowsToJsons({rows});
 }
 
 
