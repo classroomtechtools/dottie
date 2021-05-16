@@ -31,19 +31,19 @@
   "author": "Adam Morris <classroomtechtools.com@gmail.com> (https://classroomtechtools.com)",
   "license": "MIT",
   "devDependencies": {
-    "@classroomtechtools/unittesting": "^1.5.1",
-    "@google/clasp": "^2.3.0",
-    "@rollup/plugin-commonjs": "^12.0.0",
+    "@classroomtechtools/unittesting": "^2.0.3",
+    "@google/clasp": "^2.3.1",
+    "@rollup/plugin-commonjs": "^19.0.0",
     "@rollup/plugin-json": "^4.1.0",
-    "@rollup/plugin-multi-entry": "^3.0.1",
-    "@rollup/plugin-node-resolve": "^8.1.0",
+    "@rollup/plugin-multi-entry": "^4.0.0",
+    "@rollup/plugin-node-resolve": "^13.0.0",
+    "ava": "^3.15.0",
     "npm-run-all": "^4.1.5",
-    "rollup": "^2.19.0",
-    "rollup-plugin-hypothetical": "^2.1.0",
-    "ava": "^3.10.1"
+    "rollup": "^2.48.0",
+    "rollup-plugin-hypothetical": "^2.1.0"
   },
   "dependencies": {
-    "dot-object": "^2.1.3",
+    "dot-object": "^2.1.4",
     "jsdoc": "^3.6.6"
   },
   "directories": {
