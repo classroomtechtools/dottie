@@ -1,6 +1,6 @@
 {
     "source": {
-        "include": ["src/scripts/Code.js", "src/modules/Dottie.js"]
+        "include": ["src/scripts/Exports.js", "src/modules/Dottie.js"]
     },
     "plugins": ["plugins/markdown"],
     "templates": {

@@ -1,0 +1,353 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>
+      scripts/Exports.js - Documentation
+  </title>
+
+  <link href="https://www.braintreepayments.com/images/favicon-ccda0b14.png" rel="icon" type="image/png">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+  <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+  <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+  
+
+  
+
+  <!-- start Mixpanel -->
+  <script type="text/javascript">(function(e,a){if(!a.__SV){var b=window;try{var c,l,i,j=b.location,g=j.hash;c=function(a,b){return(l=a.match(RegExp(b+"=([^&]*)")))?l[1]:null};g&&c(g,"state")&&(i=JSON.parse(decodeURIComponent(c(g,"state"))),"mpeditor"===i.action&&(b.sessionStorage.setItem("_mpcehash",g),history.replaceState(i.desiredHash||"",e.title,j.pathname+j.search)))}catch(m){}var k,h;window.mixpanel=a;a._i=[];a.init=function(b,c,f){function e(b,a){var c=a.split(".");2==c.length&&(b=b[c[0]],a=c[1]);b[a]=function(){b.push([a].concat(Array.prototype.slice.call(arguments,
+  0)))}}var d=a;"undefined"!==typeof f?d=a[f]=[]:f="mixpanel";d.people=d.people||[];d.toString=function(b){var a="mixpanel";"mixpanel"!==f&&(a+="."+f);b||(a+=" (stub)");return a};d.people.toString=function(){return d.toString(1)+".people (stub)"};k="disable time_event track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config reset people.set people.set_once people.increment people.append people.union people.track_charge people.clear_charges people.delete_user".split(" ");
+  for(h=0;h<k.length;h++)e(d,k[h]);a._i.push([b,c,f])};a.__SV=1.2;b=e.createElement("script");b.type="text/javascript";b.async=!0;b.src="undefined"!==typeof MIXPANEL_CUSTOM_LIB_URL?MIXPANEL_CUSTOM_LIB_URL:"file:"===e.location.protocol&&"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\/\//)?"https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js":"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";c=e.getElementsByTagName("script")[0];c.parentNode.insertBefore(b,c)}})(document,window.mixpanel||[]);
+  mixpanel.init("1919205b2da72e4da3b9b6639b444d59");</script>
+  <!-- end Mixpanel -->
+</head>
+
+<body>
+  <svg style="display: none;">
+    <defs>
+      <symbol id="linkIcon" fill="#706d77" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 0h24v24H0z" fill="none"/>
+          <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+  <label for="nav-trigger" class="navicon-button x">
+    <div class="navicon"></div>
+  </label>
+
+  <label for="nav-trigger" class="overlay"></label>
+
+  <div class="top-nav-wrapper">
+    <ul>
+      <li >
+        <a href="index.html">
+          
+            <svg fill="#6D6D6D" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+              <path d="M0 0h24v24H0z" fill="none"/>
+            </svg>
+          
+          
+        </a>
+      </li>
+
+      
+
+    </ul>
+  </div>
+
+  <nav>
+    <h3 class="reference-title">
+      dottie by Classroom Tech Tools.
+    </h3>
+
+    
+
+    <h3>Classes</h3><ul><li id="Dottie-nav"><a href="Dottie.html">Dottie</a><ul class='methods'><li data-type="method" id="Dottie-copy-nav"><a href="Dottie.html#.copy">copy</a></li><li data-type="method" id="Dottie-delete-nav"><a href="Dottie.html#.delete">delete</a></li><li data-type="method" id="Dottie-dot-nav"><a href="Dottie.html#.dot">dot</a></li><li data-type="method" id="Dottie-expand-nav"><a href="Dottie.html#.expand">expand</a></li><li data-type="method" id="Dottie-get-nav"><a href="Dottie.html#.get">get</a></li><li data-type="method" id="Dottie-jsonsToRows-nav"><a href="Dottie.html#.jsonsToRows">jsonsToRows</a></li><li data-type="method" id="Dottie-move-nav"><a href="Dottie.html#.move">move</a></li><li data-type="method" id="Dottie-remove-nav"><a href="Dottie.html#.remove">remove</a></li><li data-type="method" id="Dottie-rowsToJsons-nav"><a href="Dottie.html#.rowsToJsons">rowsToJsons</a></li><li data-type="method" id="Dottie-set-nav"><a href="Dottie.html#.set">set</a></li><li data-type="method" id="Dottie-transfer-nav"><a href="Dottie.html#.transfer">transfer</a></li><li data-type="method" id="Dottie-transform-nav"><a href="Dottie.html#.transform">transform</a></li></ul></li></ul><h3 id="global-nav">Global</h3><ul><li><a href="global.html#augment">augment</a></li><li><a href="global.html#copy">copy</a></li><li><a href="global.html#delete_">delete_</a></li><li><a href="global.html#dot">dot</a></li><li><a href="global.html#expand">expand</a></li><li><a href="global.html#get">get</a></li><li><a href="global.html#jsonsToRows">jsonsToRows</a></li><li><a href="global.html#move">move</a></li><li><a href="global.html#remove">remove</a></li><li><a href="global.html#rowsToJsons">rowsToJsons</a></li><li><a href="global.html#set">set</a></li><li><a href="global.html#transfer">transfer</a></li><li><a href="global.html#transform">transform</a></li></ul>
+  </nav>
+
+  <div id="main">
+    
+      <h1 class="page-title">
+        scripts/Exports.js
+      </h1>
+    
+
+    
+      
+
+<section>
+  <article>
+    <pre class="prettyprint source linenums"><code>/**
+ * Returns the library itself; only useful for internal purposes such as testing
+ * @ignore
+ * @returns {DottieLib}
+ */
+function lib() {
+  const {Dottie} = Import;
+  return Dottie;
+}
+
+
+/**
+ * Sets `value` at the location in `obj` as determined by `path`
+ * @param {Object} obj
+ * @param {String} path
+ * @param {Any} value
+ * @returns {Object}
+ * @example
+const path = 'path.to.key';
+let obj = {};
+obj = dottie.set(obj, path, 'value');
+Logger.log(obj.path.to.key);  // 'value'
+ */
+function set(obj, path, value) {
+  const {Dottie} = Import;
+  return Dottie.set({path, value, obj});
+}
+
+
+/**
+ * Returns the value at location indicated by `path` of `obj`
+ * @param {Object} obj
+ * @param {String} path
+ * @return {Any}
+ * @example
+const path = 'path.to.key';
+let obj = {};
+obj = dottie.set(obj, path, 'value');
+const result = dottie.get(obj, path);
+Logger.log(result);  // 'value'
+ */
+function get(obj, path) {
+  const {Dottie} = Import;
+  return Dottie.get({path, obj});
+}
+
+
+/**
+ * Move a property within one object to another location. In-place operation, returns obj. If sourcePath is undefined, nothing changed
+ * @param {Object} obj
+ * @param {String} sourcePath
+ * @param {String} destPath
+ * @return {Object}
+ * @example
+const path = 'path.to.key';
+const diffPath = 'a.different.path.to.key';
+let obj = {};
+obj = dottie.set(obj, path, 'value');
+obj = dottie.move(obj, path, diffPath);
+const first = dottie.get(obj, path);
+const second = dottie.get(obj, diffPath);
+Logger.log(first);  // undefined
+Logger.log(second);  // 'value'
+ */
+function move(obj, sourcePath, destPath) {
+  const {Dottie} = Import;
+  return Dottie.move({sourcePath, destPath, obj})
+}
+
+
+/**
+ * Copy property from one object to another object. If sourcePath is undefined, nothing changed. It returns the destination object, but the operation is in-place.
+ * @param {Object} obj
+ * @param {String} sourcePath
+ * @param {Object} target
+ * @param {String} destPath
+ * @returns {Object}
+ * @example
+const path = 'path.to.key';
+const source = dottie.set({}, path, 'value');
+const dest = {};
+dottie.copy(source, path, dest, 'new.path.to.key');
+const present = dottie.get(source, path);
+const value = dottie.get(dest, path);
+Logger.log(present);  // undefined
+Logger.log(value);  // 'value'
+ */
+function copy (obj, sourcePath, target, destPath) {
+  const {Dottie} = Import;
+  return Dottie.copy({sourcePath, destPath, obj, target});
+}
+
+
+/**
+ * Transfer property from one object to another. Removes from sourceObject. If sourcePath is undefined, nothing happens. Same as copy except does not remove from source.
+ * @param {Object} obj
+ * @param {String} sourcePath
+ * @param {Object} target
+ * @param {String} destPath
+ * @return {Object}
+ * @example
+const path = 'path.to.key';
+const source = dottie.set({}, path, 'value');
+const dest = {};
+dottie.copy(source, dest, path, 'new.path.to.key');
+const present = dottie.get(source, path);
+const value = dottie.get(dest, path);
+Logger.log(present);  // undefined
+Logger.log(value);  // 'value'
+ */
+function transfer (obj, sourcePath, target, destPath) {
+  const {Dottie} = Import;
+  return Dottie.transfer({sourcePath, destPath, obj, target});
+}
+
+
+/**
+ * Converts an object with dotted-key/value pairs to it's expanded/normal version
+ * @param {Object} obj
+ * @return {Object}
+ */
+function expand (obj) {
+  const {Dottie} = Import;
+  return Dottie.expand({obj});
+}
+
+
+/**
+ * Remove a value using dot notation (and keep array indexes)
+ * @param {Object} obj
+ * @param {String} path
+ * @return {Any}
+ */
+function remove(obj, path) {
+  const {Dottie} = Import;
+  return Dottie.remove({obj, path});
+}
+
+
+/**
+ * Delete a value using dot notation (and adjust array indexes)
+ * @param {Object} obj
+ * @param {Object} path
+ * @return {Object}
+ */
+function delete_(obj, path) {
+  const {Dottie} = Import;
+  return Dottie.delete_({obj, path});
+}
+
+
+/**
+ * Transform properties
+ * @param {Object} obj
+ * @param {Object} recipe
+ * return {Object}
+ */
+function transform(obj, recipe) {
+  const {Dottie} = Import;
+  return Dottie.transform({recipe, obj});
+}
+
+
+/**
+ * Convert object to dotted-key/value pair
+ * @param {Object} obj
+ * @return {Object}
+ */
+function dot(obj) {
+  const {Dottie} = Import;
+  return Dottie.dot({obj});
+}
+
+
+/**
+ * Convert an array of jsons to a 2d array that can be used to populate a Google Spreadsheet with unique headers. The retuned object's first element is an array of header values whose string values are derived via path notation, and any nested objects or arrays follow the naming convention provided by dots (for objects) and brackets (for arrays).
+ * @param {Object[]} jsons - An array of objects, which can contain native values or nested objects with native values
+ * @param {Array} [priorityHeaders=[]] - A list of headers you want to appear first as the headers. Note, if header does not appear in any row, it will not appear at all even though you've specified it as priority.
+ * @param {Boolean} [deleteNulls=false] - If true, do not include any columns whose values are null
+ * @param {Boolean} [deleteEmptyArrays=true] - If true, make sure that columns that have empty arrays are not shown as null fields
+ * @return {Array[]}
+ * @example
+ // simple example
+ const jsons = [{
+   obj: {
+     key: 'value'
+   },
+   arr: [1, 2]
+ }];
+ const result = dottie.jsonsToRows(jsons);
+ Logger.log(result);
+ // [ ['obj.key', 'arr[0]', 'arry[1]'],
+ //   ['value',   1,        2]
+  * @example
+ // example with null objects and empty arrays
+ const jsons = [{
+   obj: {
+     key: null
+   },
+   arr: []
+ }, true, true];
+ const result = dottie.jsonsToRows(jsons);
+ Logger.log(result);
+ // [ [],
+ //   []
+ */
+function jsonsToRows (jsons, priorityHeaders=[], deleteNulls=false, deleteEmptyArrays=true) {
+  const {Dottie} = Import;
+  return Dottie.jsonsToRows({jsons, priorityHeaders, deleteNulls, deleteEmptyArrays});
+}
+
+
+/**
+ *
+ * @param {Array[]} rows
+ * @return {Object[]}
+ */
+function rowsToJsons(rows) {
+  const {Dottie} = Import;
+  return Dottie.rowsToJsons({rows});
+}
+
+
+/**
+ * Alternative way to utilize library, where you use methods augmented on the Object and Array prototype, and use named parameters on the method calls. Optional "advanced use" mode.
+ * @param {Object} Object - Pass in `Object`
+ * @param {Array} Array - Pass in `Array`
+ * @example
+dottie.augment(Object, Array);
+const path = 'path.to.key';
+// now can use methods on objects and arrays
+const obj = {}.dottie.set({path, value: 'value'});
+const arr = [].dottie.jsonsToRows({jsons: [{'key': 'value'}]});
+Logger.log(obj.dottie.get({path}));  // 'value'
+ */
+function augment (Object, Array) {
+  const {Dottie} = Import;
+  Dottie.augment(Object, Array);
+}
+</code></pre>
+  </article>
+</section>
+
+    
+
+
+  </div>
+
+  <br class="clear">
+
+  <footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a>
+  </footer>
+
+  <script src="scripts/linenumber.js"></script>
+  <script src="scripts/pagelocation.js"></script>
+
+  
+
+</body>
+</html>

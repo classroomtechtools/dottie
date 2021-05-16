@@ -309,7 +309,7 @@
     <dd class="tag-source">
       <ul class="dummy">
         <li>
-          <a href="scripts_Code.js.html">scripts/Code.js</a>, <a href="scripts_Code.js.html#line223">line 223</a>
+          <a href="scripts_Exports.js.html">scripts/Exports.js</a>, <a href="scripts_Exports.js.html#line236">line 236</a>
         </li>
       </ul>
     </dd>
@@ -561,7 +561,7 @@ Logger.log(obj.dottie.get({path}));  // 'value'</code></pre>
     <dd class="tag-source">
       <ul class="dummy">
         <li>
-          <a href="scripts_Code.js.html">scripts/Code.js</a>, <a href="scripts_Code.js.html#line88">line 88</a>
+          <a href="scripts_Exports.js.html">scripts/Exports.js</a>, <a href="scripts_Exports.js.html#line88">line 88</a>
         </li>
       </ul>
     </dd>
@@ -757,7 +757,7 @@ Logger.log(value);  // 'value'</code></pre>
     <dd class="tag-source">
       <ul class="dummy">
         <li>
-          <a href="scripts_Code.js.html">scripts/Code.js</a>, <a href="scripts_Code.js.html#line146">line 146</a>
+          <a href="scripts_Exports.js.html">scripts/Exports.js</a>, <a href="scripts_Exports.js.html#line146">line 146</a>
         </li>
       </ul>
     </dd>
@@ -903,7 +903,7 @@ Logger.log(value);  // 'value'</code></pre>
     <dd class="tag-source">
       <ul class="dummy">
         <li>
-          <a href="scripts_Code.js.html">scripts/Code.js</a>, <a href="scripts_Code.js.html#line169">line 169</a>
+          <a href="scripts_Exports.js.html">scripts/Exports.js</a>, <a href="scripts_Exports.js.html#line169">line 169</a>
         </li>
       </ul>
     </dd>
@@ -1049,7 +1049,7 @@ Logger.log(value);  // 'value'</code></pre>
     <dd class="tag-source">
       <ul class="dummy">
         <li>
-          <a href="scripts_Code.js.html">scripts/Code.js</a>, <a href="scripts_Code.js.html#line122">line 122</a>
+          <a href="scripts_Exports.js.html">scripts/Exports.js</a>, <a href="scripts_Exports.js.html#line122">line 122</a>
         </li>
       </ul>
     </dd>
@@ -1224,7 +1224,7 @@ Logger.log(value);  // 'value'</code></pre>
     <dd class="tag-source">
       <ul class="dummy">
         <li>
-          <a href="scripts_Code.js.html">scripts/Code.js</a>, <a href="scripts_Code.js.html#line42">line 42</a>
+          <a href="scripts_Exports.js.html">scripts/Exports.js</a>, <a href="scripts_Exports.js.html#line42">line 42</a>
         </li>
       </ul>
     </dd>
@@ -1290,7 +1290,7 @@ Logger.log(result);  // 'value'</code></pre>
 
 
   <div class="description">
-    <p>Convert an array of jsons to a 2d array that can be used to populate a Google Spreadsheet with unique headers. The retuned object's first element are the header values whose string values are derived via path notation, and any nested objects or arrays follow the naming convention provided by dots (for objects) and brackets (for arrays).</p>
+    <p>Convert an array of jsons to a 2d array that can be used to populate a Google Spreadsheet with unique headers. The retuned object's first element is an array of header values whose string values are derived via path notation, and any nested objects or arrays follow the naming convention provided by dots (for objects) and brackets (for arrays).</p>
   </div>
 
 
@@ -1444,13 +1444,13 @@ Logger.log(result);  // 'value'</code></pre>
         
           <td class="default">
             
-              true
+              false
             
           </td>
         
 
         <td class="description last">
-          
+          <p>If true, do not include any columns whose values are null</p>
           
         </td>
       </tr>
@@ -1495,7 +1495,7 @@ Logger.log(result);  // 'value'</code></pre>
         
 
         <td class="description last">
-          
+          <p>If true, make sure that columns that have empty arrays are not shown as null fields</p>
           
         </td>
       </tr>
@@ -1539,7 +1539,7 @@ Logger.log(result);  // 'value'</code></pre>
     <dd class="tag-source">
       <ul class="dummy">
         <li>
-          <a href="scripts_Code.js.html">scripts/Code.js</a>, <a href="scripts_Code.js.html#line194">line 194</a>
+          <a href="scripts_Exports.js.html">scripts/Exports.js</a>, <a href="scripts_Exports.js.html#line207">line 207</a>
         </li>
       </ul>
     </dd>
@@ -1570,10 +1570,11 @@ Logger.log(result);  // 'value'</code></pre>
         <use xlink:href="#linkIcon"></use>
       </svg>
     </a>
-    <h5 id="jsonsToRows-examples">Example</h5>
+    <h5 id="jsonsToRows-examples">Examples</h5>
     
 
-  <pre class="prettyprint"><code>const jsons = [{
+  <pre class="prettyprint"><code>// simple example
+ const jsons = [{
    obj: {
      key: 'value'
    },
@@ -1583,6 +1584,19 @@ Logger.log(result);  // 'value'</code></pre>
  Logger.log(result);
  // [ ['obj.key', 'arr[0]', 'arry[1]'],
  //   ['value',   1,        2]</code></pre>
+
+
+  <pre class="prettyprint"><code>// example with null objects and empty arrays
+ const jsons = [{
+   obj: {
+     key: null
+   },
+   arr: []
+ }, true, true];
+ const result = dottie.jsonsToRows(jsons);
+ Logger.log(result);
+ // [ [],
+ //   []</code></pre>
 
 
   </div>
@@ -1766,7 +1780,7 @@ Logger.log(result);  // 'value'</code></pre>
     <dd class="tag-source">
       <ul class="dummy">
         <li>
-          <a href="scripts_Code.js.html">scripts/Code.js</a>, <a href="scripts_Code.js.html#line65">line 65</a>
+          <a href="scripts_Exports.js.html">scripts/Exports.js</a>, <a href="scripts_Exports.js.html#line65">line 65</a>
         </li>
       </ul>
     </dd>
@@ -1963,7 +1977,7 @@ Logger.log(second);  // 'value'</code></pre>
     <dd class="tag-source">
       <ul class="dummy">
         <li>
-          <a href="scripts_Code.js.html">scripts/Code.js</a>, <a href="scripts_Code.js.html#line134">line 134</a>
+          <a href="scripts_Exports.js.html">scripts/Exports.js</a>, <a href="scripts_Exports.js.html#line134">line 134</a>
         </li>
       </ul>
     </dd>
@@ -2105,7 +2119,7 @@ Logger.log(second);  // 'value'</code></pre>
     <dd class="tag-source">
       <ul class="dummy">
         <li>
-          <a href="scripts_Code.js.html">scripts/Code.js</a>, <a href="scripts_Code.js.html#line205">line 205</a>
+          <a href="scripts_Exports.js.html">scripts/Exports.js</a>, <a href="scripts_Exports.js.html#line218">line 218</a>
         </li>
       </ul>
     </dd>
@@ -2309,7 +2323,7 @@ Logger.log(second);  // 'value'</code></pre>
     <dd class="tag-source">
       <ul class="dummy">
         <li>
-          <a href="scripts_Code.js.html">scripts/Code.js</a>, <a href="scripts_Code.js.html#line24">line 24</a>
+          <a href="scripts_Exports.js.html">scripts/Exports.js</a>, <a href="scripts_Exports.js.html#line24">line 24</a>
         </li>
       </ul>
     </dd>
@@ -2559,7 +2573,7 @@ Logger.log(obj.path.to.key);  // 'value'</code></pre>
     <dd class="tag-source">
       <ul class="dummy">
         <li>
-          <a href="scripts_Code.js.html">scripts/Code.js</a>, <a href="scripts_Code.js.html#line111">line 111</a>
+          <a href="scripts_Exports.js.html">scripts/Exports.js</a>, <a href="scripts_Exports.js.html#line111">line 111</a>
         </li>
       </ul>
     </dd>
@@ -2755,7 +2769,7 @@ Logger.log(value);  // 'value'</code></pre>
     <dd class="tag-source">
       <ul class="dummy">
         <li>
-          <a href="scripts_Code.js.html">scripts/Code.js</a>, <a href="scripts_Code.js.html#line158">line 158</a>
+          <a href="scripts_Exports.js.html">scripts/Exports.js</a>, <a href="scripts_Exports.js.html#line158">line 158</a>
         </li>
       </ul>
     </dd>
