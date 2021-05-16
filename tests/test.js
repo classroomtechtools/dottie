@@ -204,7 +204,7 @@ test("Dottie.augment", t=> {
 
 });
 
-test("priority headers, and no nulls", t=> {
+test("deleteNulls: true will delete nulls", t=> {
 
     obj = {};
     const jsons = [
@@ -212,13 +212,13 @@ test("priority headers, and no nulls", t=> {
         {array: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'hi', 'i', 'k', 'l', 'm', 'n', 'o', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'hi', 'i', 'k', 'l', 'm', 'n', 'o'], one: {two: 2, three: 3}, id: 2},
         {another: 'one', one: null, id: 1}
     ];
-    const rows = Dottie.jsonsToRows({jsons, priorityHeaders: ['id']});
+    const rows = Dottie.jsonsToRows({jsons, deleteNulls: true, priorityHeaders: ['id']});
     t.true(rows[0][0] === 'id')
     t.true(!rows[0].includes('one'));
 
 });
 
-test("eliminate empty lists too", t=> {
+test("eliminate empty lists", t=> {
 
     obj = {};
     const jsons = [
@@ -231,7 +231,7 @@ test("eliminate empty lists too", t=> {
 
 });
 
-test("keep null when deleteNulls is false", t=> {
+test("deleteNulls: false (default) will not have null values", t=> {
 
     obj = {};
     const jsons = [
@@ -239,7 +239,7 @@ test("keep null when deleteNulls is false", t=> {
         {array: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'hi', 'i', 'k', 'l', 'm', 'n', 'o', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'hi', 'i', 'k', 'l', 'm', 'n', 'o'], one: {two: 2, three: 3}, id: 2},
         {another: 'one', one: null, id: 1}
     ];
-    const rows = Dottie.jsonsToRows({jsons, priorityHeaders: ['id'], deleteNulls: false});
+    const rows = Dottie.jsonsToRows({jsons, priorityHeaders: ['id']});
     t.true(rows[3][2] === null);
 });
 

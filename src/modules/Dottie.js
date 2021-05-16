@@ -208,11 +208,11 @@ class Dottie {
    * @param {Object} namedParameters
    * @param {Object[]} namedParameters.jsons
    * @param {String[]} [namedParameters.priorityHeaders=[]]
-   * @param {Boolean} [namedParameters.deleteNulls=true]
+   * @param {Boolean} [namedParameters.deleteNulls=false]
    * @param {Boolean} [namedParameters.deleteEmptyArrays=true]
    * @returns {Array[]}
    */
-  static jsonsToRows ({jsons=JsonsI.req, priorityHeaders=[], deleteNulls=true, deleteEmptyArrays=true, ...kwargs}={}) {
+  static jsonsToRows ({jsons=JsonsI.req, priorityHeaders=[], deleteNulls=false, deleteEmptyArrays=true, ...kwargs}={}) {
     JsonsI.extra(kwargs);
     JsonsI.typecheck(arguments);
     const headers = [];
