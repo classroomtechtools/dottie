@@ -75,7 +75,7 @@
 
     
 
-    <h3>Classes</h3><ul><li id="dottie-nav"><a href="dottie.html">dottie</a><ul class='methods'><li data-type="method" id="dottie-copy-nav"><a href="dottie.html#.copy">copy</a></li><li data-type="method" id="dottie-delete-nav"><a href="dottie.html#.delete">delete</a></li><li data-type="method" id="dottie-dot-nav"><a href="dottie.html#.dot">dot</a></li><li data-type="method" id="dottie-expand-nav"><a href="dottie.html#.expand">expand</a></li><li data-type="method" id="dottie-get-nav"><a href="dottie.html#.get">get</a></li><li data-type="method" id="dottie-jsonsToRows-nav"><a href="dottie.html#.jsonsToRows">jsonsToRows</a></li><li data-type="method" id="dottie-move-nav"><a href="dottie.html#.move">move</a></li><li data-type="method" id="dottie-remove-nav"><a href="dottie.html#.remove">remove</a></li><li data-type="method" id="dottie-rowsToJsons-nav"><a href="dottie.html#.rowsToJsons">rowsToJsons</a></li><li data-type="method" id="dottie-set-nav"><a href="dottie.html#.set">set</a></li><li data-type="method" id="dottie-transfer-nav"><a href="dottie.html#.transfer">transfer</a></li><li data-type="method" id="dottie-transform-nav"><a href="dottie.html#.transform">transform</a></li></ul></li></ul>
+    <h3>Classes</h3><ul><li id="Dottie-nav"><a href="Dottie.html">Dottie</a><ul class='methods'><li data-type="method" id="Dottie-copy-nav"><a href="Dottie.html#.copy">copy</a></li><li data-type="method" id="Dottie-delete-nav"><a href="Dottie.html#.delete">delete</a></li><li data-type="method" id="Dottie-dot-nav"><a href="Dottie.html#.dot">dot</a></li><li data-type="method" id="Dottie-expand-nav"><a href="Dottie.html#.expand">expand</a></li><li data-type="method" id="Dottie-get-nav"><a href="Dottie.html#.get">get</a></li><li data-type="method" id="Dottie-jsonsToRows-nav"><a href="Dottie.html#.jsonsToRows">jsonsToRows</a></li><li data-type="method" id="Dottie-move-nav"><a href="Dottie.html#.move">move</a></li><li data-type="method" id="Dottie-remove-nav"><a href="Dottie.html#.remove">remove</a></li><li data-type="method" id="Dottie-rowsToJsons-nav"><a href="Dottie.html#.rowsToJsons">rowsToJsons</a></li><li data-type="method" id="Dottie-set-nav"><a href="Dottie.html#.set">set</a></li><li data-type="method" id="Dottie-transfer-nav"><a href="Dottie.html#.transfer">transfer</a></li><li data-type="method" id="Dottie-transform-nav"><a href="Dottie.html#.transform">transform</a></li></ul></li></ul>
   </nav>
 
   <div id="main">
@@ -118,10 +118,11 @@ function Interface_ (name='', params={}) {
       // now that both have matching types, let's go
       for (const prop in this.params) {
         if (this.params[prop] === 'any') continue;  // type of 'any' special meaning is to skip it
+        if (argObj[prop] === undefined) continue;
         if (this.params[prop] === 'array') {
-          if (!Array.isArray(argObj[prop])) throw new Error(`Type mismatch in ${this.name}: "${prop}". Expected array but got ${typeof(argObj)}`);
+          if (!Array.isArray(argObj[prop])) throw new Error(`Type mismatch in ${this.name}: "${prop}". Expected array but got ${typeof(argObj)} instead`);
         } else if (typeof(argObj[prop]) !== this.params[prop]) {
-          throw new Error(`Type mismatch in ${this.name}: "${prop}". Expected ${typeof(this.params[prop])} but got ${typeof(argObj)}`);
+          throw new Error(`Type mismatch in ${this.name}: "${prop}". Expected ${this.params[prop]} but got ${typeof(argObj[prop])} instead`);
         }
       }
     }
@@ -141,14 +142,14 @@ const DeleteI = Interface_('delete', {path: 'string', obj: 'object'});
 const RemoveI = Interface_('remove', {path: 'string', obj: 'object'});
 const TransformI = Interface_('transform', {recipe: 'object', obj: 'object'});
 const DotI = Interface_('dot', {obj: 'object'});
-const JsonsI = Interface_('jsons', {jsons: 'array'});
+const JsonsI = Interface_('jsons', {jsons: 'array', priorityHeaders: 'array', deleteNulls: 'boolean', deleteEmptyArrays: 'boolean'});
 const RowsI = Interface_('rows', {rows: 'array'});
 
 /**
  * Internal class object. Global methods interface with these methods. If `augment` is used, these methods are augmented to Objects and Arrays with these function signatures.
  * @class
  */
-class dottie {
+class Dottie {
 
   /**
    * No instances are made, all these methods are static
@@ -177,6 +178,7 @@ class dottie {
    * @param {Object} namedParameters.obj
    * @param {String} namedParameters.sourcePath
    * @param {String} namedParameters.target
+   * @param {String} namedParameters.destPath
    * @return {Object}
    */
   static copy ({obj=CopyI.req, sourcePath=CopyI.req, target=CopyI.req, destPath=CopyI.req, ...kwargs}={}) {
@@ -296,29 +298,46 @@ class dottie {
   /**
    * @see {@link jsonsToRows}
    * @param {Object} namedParameters
-   * @param {Any[]} namedParameters.jsons
-   * @returns {Any[][]}
+   * @param {Object[]} namedParameters.jsons
+   * @param {String[]} [namedParameters.priorityHeaders=[]]
+   * @param {Boolean} [namedParameters.deleteNulls=false]
+   * @param {Boolean} [namedParameters.deleteEmptyArrays=true]
+   * @returns {Array[]}
    */
-  static jsonsToRows ({jsons=JsonsI.req, ...kwargs}={}) {
+  static jsonsToRows ({jsons=JsonsI.req, priorityHeaders=[], deleteNulls=false, deleteEmptyArrays=true, ...kwargs}={}) {
     JsonsI.extra(kwargs);
     JsonsI.typecheck(arguments);
     const headers = [];
     const values = [];
 
     // save values as dotted objects and store headers
+    // remove any nulls
     for (const json of jsons) {
       const value = DotObject.dot(json);
+      for (const [k, v] of Object.entries(value)) {
+        if ( (deleteNulls &amp;&amp; v === null) || (deleteEmptyArrays &amp;&amp; Array.isArray(v) &amp;&amp; v.length===0) ) {
+          delete value[k];
+        }
+      }
       headers.push(Object.keys(value));
       values.push(value);
     }
 
-    // row1 will consist of unique header columns, sorted alphabetically
+    // row1 will consist of unique header columns, sorted alphabetically with id first
     // use array generics for most efficient manner of doing this
     const row1 = [...new Set([].concat(...headers))];
     row1.sort();
+    for (const [i, h] of priorityHeaders.entries()) {
+      const idx = row1.indexOf(h);
+      if (idx !== -1) {
+        row1.splice(idx, 1);      // remove
+        row1.splice(i, 0, h);  // insert at front
+      }
+
+    }
 
     // the rest of the rows consits of the values in each column, or null if not present
-    const rows = values.map(value => row1.map(column => value[column] || null));
+    const rows = values.map(value => row1.map(column => value[column] === false ? false : value[column] || null));
 
     // concat the arrays efficiently for return
     return [row1, ...rows];
@@ -367,8 +386,8 @@ class dottie {
     !A.prototype.dottie &amp;&amp; Object.defineProperty(A.prototype, 'dottie', {
       get: function () {
         return {
-          jsonsToRows: ({...kwargs}={}) => {
-            return me.jsonsToRows({jsons:this});
+          jsonsToRows: ({priorityHeaders=[], ...kwargs}={}) => {
+            return me.jsonsToRows({jsons:this, priorityHeaders});
           },
           rowsToJsons: ({...kwargs}={}) => {
             return me.rowsToJsons({rows: this});
@@ -417,7 +436,7 @@ class dottie {
 
 }
 
-export default dottie;
+export {Dottie};
 </code></pre>
   </article>
 </section>
