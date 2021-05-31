@@ -7,8 +7,9 @@ With thanks to [dot-object](https://github.com/rhalff/dot-object).
 ## Quickstart
 
 - Script ID: `1k_EGzQ6FvfMlyifgPxcBqgPe3TQSWLFGF9VrDWAGU1wfOFnOFsRbI8V_`
-- [Documentation](https://classroomtechtools.github.io/dottie/)
 - Default identifier is `dottie` 
+- See [Documentation](https://classroomtechtools.github.io/dottie/)
+
 
 ## Usage
 

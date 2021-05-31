@@ -647,13 +647,15 @@ const JsonsI = Interface_('jsons', {jsons: 'array', priorityHeaders: 'array', de
 const RowsI = Interface_('rows', {rows: 'array'});
 
 /**
- * Internal class object. Global methods interface with these methods. If `augment` is used, these methods are augmented to Objects and Arrays with these function signatures.
+ * NOTE: This is the advanced section, consider using global methods at left to get started.
+ *
+ * The global methods are just light wrappers for these methods. You can use these methods directly by calling `augment`, which augmented the `Object` and `Array` with a `dottie` namespace which bears these methods.
  * @class
  */
 class Dottie {
 
   /**
-   * No instances are made, all these methods are static
+   * No need to call this constructor
    */
   constructor () {
 
@@ -661,10 +663,10 @@ class Dottie {
 
   /**
    * @see {@link move}
-   * @param {Object} namedParameters
-   * @param {String} namedParameters.sourcePath
-   * @param {String} namedParameters.destPath
-   * @param {Object} namedParameters.obj
+   * @param {Object} params
+   * @param {String} params.sourcePath
+   * @param {String} params.destPath
+   * @param {Object} params.obj
    * @return {Object}
    */
   static move ({sourcePath=MoveI.req, destPath=MoveI.req, obj=MoveI.req, ...kwargs}={}) {
@@ -675,11 +677,11 @@ class Dottie {
 
   /**
    * @see {@link copy}
-   * @param {Object} namedParameters
-   * @param {Object} namedParameters.obj
-   * @param {String} namedParameters.sourcePath
-   * @param {String} namedParameters.target
-   * @param {String} namedParameters.destPath
+   * @param {Object} params
+   * @param {Object} params.obj
+   * @param {String} params.sourcePath
+   * @param {String} params.target
+   * @param {String} params.destPath
    * @return {Object}
    */
   static copy ({obj=CopyI.req, sourcePath=CopyI.req, target=CopyI.req, destPath=CopyI.req, ...kwargs}={}) {
@@ -690,11 +692,11 @@ class Dottie {
 
   /**
    * @see {@link transfer}
-   * @param {Object} namedParameters
-   * @param {String} namedParameters.sourcePath
-   * @param {String} namedParameters.destPath
-   * @param {Object} namedParameters.obj
-   * @param {Object} namedParameters.target
+   * @param {Object} params
+   * @param {String} params.sourcePath
+   * @param {String} params.destPath
+   * @param {Object} params.obj
+   * @param {Object} params.target
    * @return {Object}
    */
   static transfer ({sourcePath=TransferI.req, destPath=TransferI.req, obj=TransferI.req, target=TransferI.req, ...kwargs}={}) {
@@ -705,8 +707,8 @@ class Dottie {
 
   /**
    * @see {@link expand}
-   * @param {Object} namedParameters
-   * @param {Object} namedParameters.obj
+   * @param {Object} params
+   * @param {Object} params.obj
    * @returns {Object}
    */
   static expand ({obj=ExpandI.req, ...kwargs}={}) {
@@ -717,9 +719,9 @@ class Dottie {
 
   /**
    * @see {@link get}
-   * @param {Object} namedParameters
-   * @param {String} namedParameters.path
-   * @param {Object} namedParameters.obj
+   * @param {Object} params
+   * @param {String} params.path
+   * @param {Object} params.obj
    * @returns {Any}
    */
   static get ({path=GetI.req, obj=GetI.req, ...kwargs}={}) {
@@ -732,10 +734,10 @@ class Dottie {
 
   /**
    * @see {@link set}
-   * @param {Object} namedParameters
-   * @param {String} namedParameters.path
-   * @param {Any} namedParameters.value
-   * @param {Object} namedParameters.obj
+   * @param {Object} params
+   * @param {String} params.path
+   * @param {Any} params.value
+   * @param {Object} params.obj
    * @returns {Object}
    */
   static set ({path=SetI.req, value=SetI.req, obj=SetI.req, ...kwargs}={}) {
@@ -746,9 +748,9 @@ class Dottie {
 
   /**
    * @see {@link delete_}
-   * @param {Object} namedParameters
-   * @param {String} namedParameters.path
-   * @param {Object} namedParameters.obj
+   * @param {Object} params
+   * @param {String} params.path
+   * @param {Object} params.obj
    * @returns {Object}
    */
   static delete ({path=DeleteI.req, obj=DeleteI.req, ...kwargs}={}) {
@@ -759,9 +761,9 @@ class Dottie {
 
   /**
    * @see {@link remove}
-   * @param {Object} namedParameters
-   * @param {String} namedParameters.path
-   * @param {Object} namedParameters.obj
+   * @param {Object} params
+   * @param {String} params.path
+   * @param {Object} params.obj
    * @returns {Object}
    */
   static remove ({path=RemoveI.req, obj=RemoveI.req, ...kwargs}={}) {
@@ -772,10 +774,10 @@ class Dottie {
 
   /**
    * @see {@link set}
-   * @param {Object} namedParameters
-   * @param {String} namedParameters.path
-   * @param {Any} namedParameters.value
-   * @param {Object} namedParameters.obj
+   * @param {Object} params
+   * @param {String} params.path
+   * @param {Any} params.value
+   * @param {Object} params.obj
    * @returns {Object}
    */
   static transform ({recipe=TransformI.req, obj=TransformI.req, ...kwargs}={}) {
@@ -786,8 +788,8 @@ class Dottie {
 
   /**
    * @see {@link dot}
-   * @param {Object} namedParameters
-   * @param {Object} namedParameters.obj
+   * @param {Object} params
+   * @param {Object} params.obj
    * @returns {Object}
    */
   static dot ({obj=DotI.req, ...kwargs}={}) {
@@ -798,11 +800,11 @@ class Dottie {
 
   /**
    * @see {@link jsonsToRows}
-   * @param {Object} namedParameters
-   * @param {Object[]} namedParameters.jsons
-   * @param {String[]} [namedParameters.priorityHeaders=[]]
-   * @param {Boolean} [namedParameters.deleteNulls=false]
-   * @param {Boolean} [namedParameters.deleteEmptyArrays=true]
+   * @param {Object} params
+   * @param {Object[]} params.jsons
+   * @param {String[]} [params.priorityHeaders=[]]
+   * @param {Boolean} [params.deleteNulls=false]
+   * @param {Boolean} [params.deleteEmptyArrays=true]
    * @returns {Array[]}
    */
   static jsonsToRows ({jsons=JsonsI.req, priorityHeaders=[], deleteNulls=false, deleteEmptyArrays=true, ...kwargs}={}) {
@@ -846,8 +848,8 @@ class Dottie {
 
   /**
    * @see {@link rowsToJsons}
-   * @param {Object} namedParameters
-   * @param {Any[][]} namedParameters.rows
+   * @param {Object} params
+   * @param {Any[][]} params.rows
    * @returns {Any[]}
    */
   static rowsToJsons ({rows=RowsI.req, ...kwargs}={}) {
