@@ -4,6 +4,18 @@ Manipulate objects and their properties. Build jsons with sanity. Convert an arr
 
 With thanks to [dot-object](https://github.com/rhalff/dot-object).
 
+## Quickstart
+
+- Script ID: `1k_EGzQ6FvfMlyifgPxcBqgPe3TQSWLFGF9VrDWAGU1wfOFnOFsRbI8V_`
+- [Documentation](https://classroomtechtools.github.io/dottie/)
+- Default identifier is `dottie` 
+
+## Usage
+
+- Use it to work with objects, such as copying properties
+- Use it to flatten jsons into arrays, and back again
+- Advanced: Use it inline
+
 ## Motivation
 
 Working with jsons and objects can be tiresome to write out by hand, and there are easier ways to manipulate objects which other javascript frameworks can use. Why not bring that to gas?
@@ -12,14 +24,7 @@ I wrote this when working with the Google Chat Bot [cards service](https://devel
 
 I also use an array of jsons grabbed from external APIs, and write them to spreadsheets. So I added the two methods `jsonsToRows` and the reverse `rowsToJsons`, whose functionality depends upon the underyling methods.
 
-## Quickstart
-
-- Script ID: `1k_EGzQ6FvfMlyifgPxcBqgPe3TQSWLFGF9VrDWAGU1wfOFnOFsRbI8V_`
-- [Documentation](https://classroomtechtools.github.io/dottie/)
-
-Using identifier `dottie` use autocomplete to see which methods are available for object minipulation. Any parameter `obj` is the object which is the source.
-
-## Example
+## Use it to work with objects
 
 Writing a Google Chat Bot using the card service using long-form jsons was a bit difficult. This is much more readable (and easier to edit) than writing out the object in long form:
 
@@ -89,27 +94,51 @@ Logger.log(obj);
 */
 ```
 
-## API
+## Use it to flatten jsons into arrays, and back again
 
-The file `export.gs` illustrates all of the methods that are available when used as an imported library. Autocomplete assists with this, too.
+### dottie.jsonsToRows
 
-Alternatively, use it as an inline library (copied and pasted into your project), and see the Dottie class in `interface.gs` for the API.
+Takes an array of json objects and converts into a spreadsheet-friendly 2d array. The columns are named with dot notation according to the path of the properties. The first row contains the headers/columns (in alphabetical order) and the remaining rows are the values. 
 
-If you use `.augment` this enables the "advanced" API where you have methods on `Object.prototype` and `Array.prototype`. 
+Exmaple: 
+
+```js
+const jsons = [
+  {one: {two: 2}},
+  {one: {two: 2, three: 3}},
+  {another: 'one'}
+];
+const result = dottie.jsonsToRows(jsons);
+Logger.log(result);
+```
+
+Result is (formatted for readability):
+
+```js
+[
+  ['another', 'one.three', 'one.two'],
+  [  null,       null,        2.0],
+  [  null,       3.0,         2.0],
+  [  'one',      null,        null]
+]
+```
+
+Note that for paths in json which has an empty array, they are removed from the resulting array. 
+
+### dottie.rowsToJsons
+
+This is the reverse of `dottie.jsonsToRows`. 
 
 
-## Howto as inline library
+## Usage of `.augment`
 
-Alternatively, copy and paste the `interface.gs`, `dot-object.gs` files into your project. Copying and pasting `export.gs` into your project will get you `set`, `get`, `move`, etc methods in the global space.
+If using `dottie` namespace doesn't fit your brain, you can do this:
 
-More "advanced" usage would be to call `Dottie.augment()` when used as an inline library, which provides you `{}.dottie` and `[].dottie` namespaces. The reason this way of working is tagged as "advanced" is that you have to interact with the methods with object parameters, and you'll have to look up in `Dottie` class static methods as needed.
+```js
+dottie.augment(Object, Array);
+```
 
-Furthermore, any parameters named `obj` in the published API is not needed to be passed when used in this manner.
-
-
-### Usage as inline library
-
-Same as above, except no need for the `dottie` namespace … or … if you call `Dottie.augment()` you will then be able to do this:
+That will let you use `{}.dottie.<method>` alternative syntax. Note that parameters are used differently too:
 
 ```js
 const obj = {}.dottie.set({path: 'path.to.value', value: 100});
@@ -146,10 +175,6 @@ Logger.log(obj);
 
 ## Notes
 
-### Usage of `dottie.augment()`
-
-You can get `{}.dottie` and `[].dottie` mode while using dottie as an imported library if you so which, by calling `dottie.augment(Object, Array)`. This is not highly advertised as it sounds like a bit of pain; you'll have to look up the methods and usage on this github (since it won't be in your project).  Or maybe the conventions used here are so obvious you won't have to look them up?
-
 ### Errors thrown
 
 It is the author's opinion that a library should throw errors if its API is used wrongly, instead of failing at some obscure code path. This ensures that the developer understands how to use the library correctly.
@@ -159,38 +184,3 @@ For that reason, type-checking is enabled. Dottie throws an error with explanati
 * its methods are passed with incompatible or unexpected types
 * if required parameters are not passed
 * more than the necessary parameters are passed
-
-
-## Special Methods
-
-### dottie.jsonsToRows
-
-Takes an array of json objects and converts into a spreadsheet-friendly 2d array. The columns are named with dot notation according to the path of the properties. The first row contains the headers/columns (in alphabetical order) and the remaining rows are the values. 
-
-Exmaple: 
-
-```js
-const jsons = [
-  {one: {two: 2}},
-  {one: {two: 2, three: 3}},
-  {another: 'one'}
-];
-const result = dottie.jsonsToRows(jsons);
-Logger.log(result);
-```
-
-Result is (formatted for readability):
-
-```js
-[
-  ['another', 'one.three', 'one.two'],
-  [  null,       null,        2.0],
-  [  null,       3.0,         2.0],
-  [  'one',      null,        null]
-]
-```
-
-### dottie.rowsToJsons
-
-This is the reverse of `dottie.jsonsToRows`.
-

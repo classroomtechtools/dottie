@@ -94,17 +94,23 @@
       <h1>dottie.gs</h1>
 <p>Manipulate objects and their properties. Build jsons with sanity. Convert an array of jsons to spreadsheet-friendly 2d arrays, and back again. Made a cinch.</p>
 <p>With thanks to <a href="https://github.com/rhalff/dot-object">dot-object</a>.</p>
-<h2>Motivation</h2>
-<p>Working with jsons and objects can be tiresome to write out by hand, and there are easier ways to manipulate objects which other javascript frameworks can use. Why not bring that to gas?</p>
-<p>I wrote this when working with the Google Chat Bot <a href="https://developers.google.com/hangouts/chat/how-tos/cards-onclick">cards service</a>, which requires writing jsons by hand. It was way easier for me to use dot notation.</p>
-<p>I also use an array of jsons grabbed from external APIs, and write them to spreadsheets. So I added the two methods <code>jsonsToRows</code> and the reverse <code>rowsToJsons</code>, whose functionality depends upon the underyling methods.</p>
 <h2>Quickstart</h2>
 <ul>
 <li>Script ID: <code>1k_EGzQ6FvfMlyifgPxcBqgPe3TQSWLFGF9VrDWAGU1wfOFnOFsRbI8V_</code></li>
 <li><a href="https://classroomtechtools.github.io/dottie/">Documentation</a></li>
+<li>Default identifier is <code>dottie</code></li>
 </ul>
-<p>Using identifier <code>dottie</code> use autocomplete to see which methods are available for object minipulation. Any parameter <code>obj</code> is the object which is the source.</p>
-<h2>Example</h2>
+<h2>Usage</h2>
+<ul>
+<li>Use it to work with objects, such as copying properties</li>
+<li>Use it to flatten jsons into arrays, and back again</li>
+<li>Advanced: Use it inline</li>
+</ul>
+<h2>Motivation</h2>
+<p>Working with jsons and objects can be tiresome to write out by hand, and there are easier ways to manipulate objects which other javascript frameworks can use. Why not bring that to gas?</p>
+<p>I wrote this when working with the Google Chat Bot <a href="https://developers.google.com/hangouts/chat/how-tos/cards-onclick">cards service</a>, which requires writing jsons by hand. It was way easier for me to use dot notation.</p>
+<p>I also use an array of jsons grabbed from external APIs, and write them to spreadsheets. So I added the two methods <code>jsonsToRows</code> and the reverse <code>rowsToJsons</code>, whose functionality depends upon the underyling methods.</p>
+<h2>Use it to work with objects</h2>
 <p>Writing a Google Chat Bot using the card service using long-form jsons was a bit difficult. This is much more readable (and easier to edit) than writing out the object in long form:</p>
 <pre class="prettyprint source lang-js"><code>const cards = {};
 const path = 'cards[0].sections[0].widgets[0].keyValue';
@@ -167,16 +173,34 @@ Logger.log(obj);
 }
 */
 </code></pre>
-<h2>API</h2>
-<p>The file <code>export.gs</code> illustrates all of the methods that are available when used as an imported library. Autocomplete assists with this, too.</p>
-<p>Alternatively, use it as an inline library (copied and pasted into your project), and see the Dottie class in <code>interface.gs</code> for the API.</p>
-<p>If you use <code>.augment</code> this enables the &quot;advanced&quot; API where you have methods on <code>Object.prototype</code> and <code>Array.prototype</code>.</p>
-<h2>Howto as inline library</h2>
-<p>Alternatively, copy and paste the <code>interface.gs</code>, <code>dot-object.gs</code> files into your project. Copying and pasting <code>export.gs</code> into your project will get you <code>set</code>, <code>get</code>, <code>move</code>, etc methods in the global space.</p>
-<p>More &quot;advanced&quot; usage would be to call <code>Dottie.augment()</code> when used as an inline library, which provides you <code>{}.dottie</code> and <code>[].dottie</code> namespaces. The reason this way of working is tagged as &quot;advanced&quot; is that you have to interact with the methods with object parameters, and you'll have to look up in <code>Dottie</code> class static methods as needed.</p>
-<p>Furthermore, any parameters named <code>obj</code> in the published API is not needed to be passed when used in this manner.</p>
-<h3>Usage as inline library</h3>
-<p>Same as above, except no need for the <code>dottie</code> namespace … or … if you call <code>Dottie.augment()</code> you will then be able to do this:</p>
+<h2>Use it to flatten jsons into arrays, and back again</h2>
+<h3>dottie.jsonsToRows</h3>
+<p>Takes an array of json objects and converts into a spreadsheet-friendly 2d array. The columns are named with dot notation according to the path of the properties. The first row contains the headers/columns (in alphabetical order) and the remaining rows are the values.</p>
+<p>Exmaple:</p>
+<pre class="prettyprint source lang-js"><code>const jsons = [
+  {one: {two: 2}},
+  {one: {two: 2, three: 3}},
+  {another: 'one'}
+];
+const result = dottie.jsonsToRows(jsons);
+Logger.log(result);
+</code></pre>
+<p>Result is (formatted for readability):</p>
+<pre class="prettyprint source lang-js"><code>[
+  ['another', 'one.three', 'one.two'],
+  [  null,       null,        2.0],
+  [  null,       3.0,         2.0],
+  [  'one',      null,        null]
+]
+</code></pre>
+<p>Note that for paths in json which has an empty array, they are removed from the resulting array.</p>
+<h3>dottie.rowsToJsons</h3>
+<p>This is the reverse of <code>dottie.jsonsToRows</code>.</p>
+<h2>Usage of <code>.augment</code></h2>
+<p>If using <code>dottie</code> namespace doesn't fit your brain, you can do this:</p>
+<pre class="prettyprint source lang-js"><code>dottie.augment(Object, Array);
+</code></pre>
+<p>That will let you use <code>{}.dottie.&lt;method&gt;</code> alternative syntax. Note that parameters are used differently too:</p>
 <pre class="prettyprint source lang-js"><code>const obj = {}.dottie.set({path: 'path.to.value', value: 100});
 Logger.log(obj);
 /* 
@@ -209,8 +233,6 @@ Logger.log(obj);
 */
 </code></pre>
 <h2>Notes</h2>
-<h3>Usage of <code>dottie.augment()</code></h3>
-<p>You can get <code>{}.dottie</code> and <code>[].dottie</code> mode while using dottie as an imported library if you so which, by calling <code>dottie.augment(Object, Array)</code>. This is not highly advertised as it sounds like a bit of pain; you'll have to look up the methods and usage on this github (since it won't be in your project).  Or maybe the conventions used here are so obvious you won't have to look them up?</p>
 <h3>Errors thrown</h3>
 <p>It is the author's opinion that a library should throw errors if its API is used wrongly, instead of failing at some obscure code path. This ensures that the developer understands how to use the library correctly.</p>
 <p>For that reason, type-checking is enabled. Dottie throws an error with explanation if:</p>
@@ -219,28 +241,6 @@ Logger.log(obj);
 <li>if required parameters are not passed</li>
 <li>more than the necessary parameters are passed</li>
 </ul>
-<h2>Special Methods</h2>
-<h3>dottie.jsonsToRows</h3>
-<p>Takes an array of json objects and converts into a spreadsheet-friendly 2d array. The columns are named with dot notation according to the path of the properties. The first row contains the headers/columns (in alphabetical order) and the remaining rows are the values.</p>
-<p>Exmaple:</p>
-<pre class="prettyprint source lang-js"><code>const jsons = [
-  {one: {two: 2}},
-  {one: {two: 2, three: 3}},
-  {another: 'one'}
-];
-const result = dottie.jsonsToRows(jsons);
-Logger.log(result);
-</code></pre>
-<p>Result is (formatted for readability):</p>
-<pre class="prettyprint source lang-js"><code>[
-  ['another', 'one.three', 'one.two'],
-  [  null,       null,        2.0],
-  [  null,       3.0,         2.0],
-  [  'one',      null,        null]
-]
-</code></pre>
-<h3>dottie.rowsToJsons</h3>
-<p>This is the reverse of <code>dottie.jsonsToRows</code>.</p>
     </article>
   </section>
 
@@ -253,7 +253,7 @@ Logger.log(result);
   <br class="clear">
 
   <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a>
   </footer>
 
   <script src="scripts/linenumber.js"></script>
