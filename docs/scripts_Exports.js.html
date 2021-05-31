@@ -293,8 +293,10 @@ function dot(obj) {
  }, true, true];
  const result = dottie.jsonsToRows(jsons);
  Logger.log(result);
- // [ [],
- //   []
+ // [
+ //   ['obj.key'],
+ //   [null]
+ // ]
  */
 function jsonsToRows (jsons, priorityHeaders=[], deleteNulls=false, deleteEmptyArrays=true) {
   const {Dottie} = Import;
@@ -304,9 +306,28 @@ function jsonsToRows (jsons, priorityHeaders=[], deleteNulls=false, deleteEmptyA
 
 /**
  *
- * @param {Array[]} rows
+ * @param {Array[]} rows - first item is array string headers in dot notation, each subsequent row represents an item whose values coorespond to the header's path
  * @return {Object[]}
+ * @example
+const headers = ['one', 'two.value', 'arr[0].name'];
+const rows = [
+  1,   2,   'Name'
+];
+const jsons = dottie.rowsToJsons([headers, ...rows]);
+Logger.log(jsons);
+// [{
+  one: 1,
+  two: {
+   value: 2
+  },
+  arr: [
+    {
+      name: 'Name'
+    }
+  ]
+}]
  */
+
 function rowsToJsons(rows) {
   const {Dottie} = Import;
   return Dottie.rowsToJsons({rows});
