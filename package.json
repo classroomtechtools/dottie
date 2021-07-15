@@ -20,7 +20,7 @@
     "clasp:logs": "clasp logs",
     "clasp:push": "npm run bundle && clasp push",
     "clasp:tests": "clasp run tests",
-    "generate:docs": "jsdoc --configure jsdoc-config.json --verbose --readme README.md"
+    "generate-docs": "docsify init ./docs"
   },
   "ava": {
     "verbose": true
