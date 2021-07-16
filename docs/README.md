@@ -1,6 +1,6 @@
 # dottie.gs
 
-Manipulate objects and their properties. Build jsons with sanity. Convert an array of jsons to spreadsheet-friendly 2d arrays, and back again. Made a cinch.
+Convert an array of jsons to spreadsheet-friendly 2d arrays, and back again. Work with nested objects. Made a cinch.
 
 With thanks to [dot-object](https://github.com/rhalff/dot-object).
 
@@ -13,21 +13,75 @@ With thanks to [dot-object](https://github.com/rhalff/dot-object).
 
 ## Usage
 
+- Use it to flatten jsons from apis into 2-d arrays, and back again
 - Use it to work with objects, such as copying properties
-- Use it to flatten jsons into arrays, and back again
 - Advanced: Use it inline
 
-## Motivation
+### Use it to flatten jsons into arrays, and back again
 
-Working with jsons and objects can be tiresome to write out by hand, and there are easier ways to manipulate objects which other javascript frameworks can use. Why not bring that to gas?
+#### dottie.jsonsToRows
 
-I wrote this when working with the Google Chat Bot [cards service](https://developers.google.com/hangouts/chat/how-tos/cards-onclick), which requires writing jsons by hand. It was way easier for me to use dot notation.
+Takes an array of json objects and converts into a spreadsheet-friendly 2d array. The columns are named with dot notation according to the path of the properties. The first row contains the headers/columns (in alphabetical order) and the remaining rows are the values. 
 
-I also use an array of jsons grabbed from external APIs, and write them to spreadsheets. So I added the two methods `jsonsToRows` and the reverse `rowsToJsons`, whose functionality depends upon the underyling methods.
+#### Examples: 
 
-## Use it to work with objects
+```js
+const jsons = [
+  {one: {two: 2}},
+  {one: {two: 2, three: 3}},
+  {another: 'one'}
+];
+const result = dottie.jsonsToRows(jsons);
+Logger.log(result);
+```
 
-Writing a Google Chat Bot using the card service using long-form jsons was a bit difficult. This is much more readable (and easier to edit) than writing out the object in long form:
+Result is (formatted for readability):
+
+```js
+[
+  ['another', 'one.three', 'one.two'],
+  [  null,       null,        2.0],
+  [  null,       3.0,         2.0],
+  [  'one',      null,        null]
+]
+```
+
+> Note that `.jsonsToRows` doesn't try to normalize or adjust the values in any way. If you need it to output in some specific manner, the idea is to adjust the jsons themselves to produce the desired result
+
+For example, we have the following structure, but you want to ensure that the spreadsheet has consistent amount of columns:
+
+```js
+const jsons = [
+  {
+    value: 'value',
+    arr: [
+      {first: 'first'},
+      {second: 'second'}
+    ]
+  }
+]
+for (const json of jsons) {
+  json.arr.length = 5;  // guaranteed to be five columns long!
+}
+dottie.jsonsToRows(jsons);
+```
+
+You can also define the order in which the columns are given in the second paramter:
+
+```js
+const jsons = /* ... */;
+dottie.jsonsToRows(jsons, ['id', 'name']);
+```
+
+> If there are more columns than `id` and `name`, the remaining columns will be output after those, in alphabetical order.
+
+#### dottie.rowsToJsons
+
+This is the reverse of `dottie.jsonsToRows`. 
+
+### Use it to work with objects
+
+Working with jsons can be bit difficult. The following is much more readable (and easier to edit) than writing out the object in long form:
 
 ```js
 const cards = {};
@@ -60,7 +114,7 @@ Logger.log(cards);
 */
 ```
 
-### Example usage
+Example usage
 
 ```js
 const obj = dottie.set({}, 'path.to.value', 100);
@@ -95,43 +149,9 @@ Logger.log(obj);
 */
 ```
 
-## Use it to flatten jsons into arrays, and back again
-
-### dottie.jsonsToRows
-
-Takes an array of json objects and converts into a spreadsheet-friendly 2d array. The columns are named with dot notation according to the path of the properties. The first row contains the headers/columns (in alphabetical order) and the remaining rows are the values. 
-
-Exmaple: 
-
-```js
-const jsons = [
-  {one: {two: 2}},
-  {one: {two: 2, three: 3}},
-  {another: 'one'}
-];
-const result = dottie.jsonsToRows(jsons);
-Logger.log(result);
-```
-
-Result is (formatted for readability):
-
-```js
-[
-  ['another', 'one.three', 'one.two'],
-  [  null,       null,        2.0],
-  [  null,       3.0,         2.0],
-  [  'one',      null,        null]
-]
-```
-
-Note that for paths in json which has an empty array, they are removed from the resulting array. 
-
-### dottie.rowsToJsons
-
-This is the reverse of `dottie.jsonsToRows`. 
 
 
-## Usage of `.augment`
+### Advanced: Usage of `.augment`
 
 If using `dottie` namespace doesn't fit your brain, you can do this:
 
@@ -139,7 +159,7 @@ If using `dottie` namespace doesn't fit your brain, you can do this:
 dottie.augment(Object, Array);
 ```
 
-That will let you use `{}.dottie.<method>` alternative syntax. Note that parameters are used differently too:
+That will let you use `{}.dottie.<method>` alternative syntax. Note that parameters are not positional:
 
 ```js
 const obj = {}.dottie.set({path: 'path.to.value', value: 100});
