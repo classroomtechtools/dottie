@@ -4,6 +4,14 @@
     },
     "plugins": ["plugins/markdown"],
     "templates": {
+	"default": {
+		outputSourceFiles: false
+	},
+	"staticFiles": {
+		"include": [
+			"./static"
+		]
+	}
         "referenceTitle": "dottie by Classroom Tech Tools."
     },
     "markdown": {
